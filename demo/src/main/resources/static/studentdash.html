@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="css/studentdash.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+    <div class="nav-right">
+        <span>Profile</span>
+        <span>Settings</span>
+        <span>Logout</span>
+    </div>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">×</a>
+    <a href="#">Dashboard</a>
+    <a href="#">Evaluations</a>
+    <a href="#">Faculty List</a>
+    <a href="#">Notifications</a>
+</div>
+
+<!-- Page Content -->
+<div class="content">
+    <h1>Student Dashboard</h1>
+
+    <!-- Stats Boxes -->
+    <div class="stats-container">
+        <div class="stat-box">
+            <p>Pending Evaluations</p>
+            <h2>0</h2>
+        </div>
+        <div class="stat-box">
+            <p>Completed Evaluations</p>
+            <h2>0</h2>
+        </div>
+        <div class="stat-box">
+            <p>Upcoming Deadline</p>
+            <h2>No upcoming deadlines</h2>
+        </div>
+    </div>
+
+    <!-- Search & Filter Bar (Centered) -->
+    <div class="filter-container">
+        <input type="text" id="searchInput" placeholder="Search faculty or courses...">
+        <select id="departmentFilter">
+            <option value="">All Departments</option>
+        </select>
+        <button id="clearFilter">Clear</button>
+    </div>
+
+    <!-- Pending Evaluations Section -->
+    <h2>Pending Evaluations</h2>
+    <div class="evaluation-container">
+        <!-- Cards will be loaded dynamically -->
+        <p class="no-evaluations">Loading evaluations...</p>
+    </div>
+
+    <!-- Completed Feedback Section -->
+    <h2>Completed Feedback</h2>
+    <div class="evaluation-container">
+        <!-- Cards will be loaded dynamically -->
+        <p class="no-evaluations">Loading evaluations...</p>
+    </div>
+</div>
+
+<script src="js/studentdash.js"></script>
+
+</body>
+</html>
