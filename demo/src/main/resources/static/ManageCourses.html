@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Courses</title>
+    <link rel="stylesheet" href="../css/managecourses.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="nav-left">
+        <a href="admindashboard.html">Dashboard</a>
+    </div>
+    <div class="nav-right">
+        <span>Profile</span>
+        <span>Logout</span>
+    </div>
+</div>
+
+<!-- Page Content -->
+<div class="content">
+    <h1>Manage Courses</h1>
+
+    <!-- Add Course Section -->
+    <div class="add-course-container">
+        <button id="addCourseButton">Add New Course</button>
+    </div>
+
+    <!-- Course Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Assigned Faculty</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>CS101</td>
+                <td>Introduction to Programming</td>
+                <td>
+                    <select>
+                        <option>Dr. Ahmed</option>
+                        <option>Dr. Sara</option>
+                        <option>Dr. Ali</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="action-button assign-button">Assign Faculty</button>
+                    <button class="action-button delete-button">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>CS102</td>
+                <td>Data Structures</td>
+                <td>
+                    <select>
+                        <option>Dr. Ahmed</option>
+                        <option>Dr. Sara</option>
+                        <option>Dr. Ali</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="action-button assign-button">Assign Faculty</button>
+                    <button class="action-button delete-button">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>CS103</td>
+                <td>Algorithms</td>
+                <td>
+                    <select>
+                        <option>Dr. Ahmed</option>
+                        <option>Dr. Sara</option>
+                        <option>Dr. Ali</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="action-button assign-button">Assign Faculty</button>
+                    <button class="action-button delete-button">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="../js/managecourses.js"></script>
+</body>
+</html>
