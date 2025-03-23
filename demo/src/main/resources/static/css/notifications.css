@@ -1,0 +1,312 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Color Variables */
+:root {
+    --primary-purple: #4A256A;
+    --light-purple: #F3F0FA;
+    --hover-purple: #C2A2D1;
+    --notification-bg: #F2E6FF;
+    --white: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Full-Screen Coverage */
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: var(--light-purple);
+}
+
+/* Top Panel */
+.top-panel {
+    background-color: var(--primary-purple);
+    color: var(--white);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1000;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.dashboard-title {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.back-dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(to right, #4A256A, #a458eb);
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 8px;
+}
+
+.back-dashboard-btn i {
+    font-size: 18px;
+}
+
+.back-dashboard-btn:hover {
+    background: linear-gradient(to right, #8D5AA9, #B38AD1);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.top-right a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.top-right a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Main Content */
+.main-section {
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
+
+/* Notifications Section */
+.content-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 26px;
+    color: var(--primary-purple);
+    margin-bottom: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Notification Container */
+.notification-container {
+    width: 90%;
+    max-width: 800px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Notification Cards */
+.notification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--notification-bg);
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease-in-out;
+    border-left: 4px solid var(--primary-purple);
+}
+
+.notification:hover {
+    background-color: var(--hover-purple);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.notification-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1;
+}
+
+.notification-icon {
+    color: var(--primary-purple);
+    font-size: 20px;
+    padding-top: 2px;
+}
+
+.notification-text {
+    flex: 1;
+}
+
+.notification p {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.notification .message-details {
+    font-size: 14px;
+    color: #666;
+}
+
+.notification .time {
+    font-size: 12px;
+    color: var(--primary-purple);
+    font-weight: bold;
+    white-space: nowrap;
+    padding-left: 10px;
+}
+
+/* Unread indicator */
+.notification.unread::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-purple);
+    border-radius: 50%;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+/* Filter and Controls */
+.notification-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 90%;
+    max-width: 800px;
+}
+
+.filter-options {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    background-color: var(--white);
+    border: 1px solid var(--primary-purple);
+    color: var(--primary-purple);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: var(--notification-bg);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-purple);
+    color: var(--white);
+}
+
+.mark-read-btn {
+    background-color: var(--primary-purple);
+    color: var(--white);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mark-read-btn:hover {
+    background-color: #5d307e;
+}
+
+/* Empty state */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.empty-state-icon {
+    font-size: 40px;
+    color: var(--primary-purple);
+    opacity: 0.4;
+    margin-bottom: 16px;
+}
+
+.empty-state-text {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 5px;
+}
+
+.pagination-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    background-color: var(--white);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination-btn:hover {
+    background-color: var(--notification-bg);
+}
+
+.pagination-btn.active {
+    background-color: var(--primary-purple);
+    color: var(--white);
+    border-color: var(--primary-purple);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .notification {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .notification .time {
+        padding-left: 0;
+        margin-top: 8px;
+        align-self: flex-end;
+    }
+    
+    .notification-controls {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .filter-options {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+}
