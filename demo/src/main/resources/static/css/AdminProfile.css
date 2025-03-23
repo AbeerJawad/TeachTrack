@@ -1,0 +1,142 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Navigation Bar */
+.navbar {
+    background: #256d46; /* Admin green theme */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for a sleek look */
+}
+
+/* Navigation Bar Links */
+.nav-left a, .nav-right a {
+    color: white; /* Set link color to white */
+    text-decoration: none; /* Remove underline */
+    background: #256d46; /* Admin green theme */
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    font-size: 16px;
+}
+
+.nav-left a:hover, .nav-right a:hover {
+    background: #14502c; /* Darker green on hover */
+}
+
+/* Links Container Styling */
+.nav-left, .nav-right {
+    display: flex;
+    gap: 15px; /* Add space between links */
+}
+
+/* Header */
+header {
+    background-color: #256d46;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+.profile-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 2px solid #2d6a4f;
+}
+
+.profile-card h2 {
+    margin: 10px 0;
+    color: #2d6a4f;
+}
+
+.profile-card p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat h3 {
+    margin: 5px 0;
+    color: #2d6a4f;
+}
+
+/* Personal Info Section */
+.personal-info {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.personal-info h3 {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #2d6a4f;
+    padding-bottom: 5px;
+    color: #2d6a4f;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+}
