@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Faculty Feedback System</title>
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-card">
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="fullName" placeholder="Full Name" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+                <input type="date" name="dateOfBirth" required>
+                <select name="role" id="role" required>
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="STUDENT">Student</option>
+                    <option value="FACULTY">Faculty</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const jsonData = Object.fromEntries(formData.entries());
+
+    // Ensure role is selected
+    if (!jsonData.role) {
+        alert("Please select a role!");
+        return;
+    }
+
+    // Validate passwords match
+    if (jsonData.password !== jsonData.confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    // Rename role to dtype for backend compatibility
+    jsonData.dtype = jsonData.role;
+    delete jsonData.role;
+
+    console.log("Signup Data:", jsonData);
+
+    fetch("http://localhost:8080/auth/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(jsonData)
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        console.log("Signup Response:", data);
+
+        if (data.message === "User registered successfully!") {
+            // Store user info in localStorage
+            localStorage.setItem("userEmail", jsonData.email);
+            localStorage.setItem("userRole", jsonData.dtype);
+            localStorage.setItem("userName", jsonData.fullName);
+            
+            alert("Signup successful!");
+            
+            // Redirect based on user role
+            window.location.href = jsonData.dtype.toLowerCase() + "dash.html";
+        } else {
+            alert(data.error || "Signup failed. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again later.");
+    });
+});
+    </script>
+
+</body>
+</html>
