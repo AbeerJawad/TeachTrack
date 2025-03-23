@@ -1,0 +1,329 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Background */
+body {
+    background: #f8f9fa;
+}
+
+/* Navigation Bar */
+.navbar {
+    background: #022d5f;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* Left & Right Navigation */
+.nav-left, .nav-right {
+    display: flex;
+    gap: 25px;
+}
+
+.navbar span {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.navbar span:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+.content {
+    text-align: center;
+    padding: 40px;
+}
+
+/* Tile Container */
+.tile-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* Tile Styling */
+.tile {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tile p {
+    margin: 10px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Filter Bar */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.filter-container input,
+.filter-container select,
+.filter-container button {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.filter-container button {
+    background: #0057B8;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.filter-container button:hover {
+    background: #022d5f;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/SEProject/demo/static/images/bg.png') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.5; /* Adjust transparency */
+    z-index: -1;
+}
+
+/* Instructor Details */
+.details {
+    text-align: left;
+    margin: auto;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* Courses Section */
+#coursesContainer {
+    text-align: left;
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+.course-box {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Evaluate Button */
+.evaluate-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #0057B8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.evaluate-btn:hover {
+    background: #022d5f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigation Bar */
+.navbar {
+    background: #022d5f;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.nav-left span {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-left span:hover {
+    text-decoration: underline;
+}
+
+/* Two-Column Layout */
+.container {
+    display: flex;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+/* Left Column */
+.left-column {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* Reviews */
+.reviews {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.reviews ul {
+    list-style: none;
+    padding: 0;
+}
+
+.reviews li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.reviews li:last-child {
+    border-bottom: none;
+}
+
+/* Evaluate Button */
+.evaluate-btn {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #0057B8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.evaluate-btn:hover {
+    background: #022d5f;
+}
+
+/* Right Column */
+.right-column {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.course-box {
+    background: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    background-color: #022d5f;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Pushes items apart */
+    align-items: center;
+}
+
+.nav-right {
+    margin-left: auto; /* Pushes Profile, Settings, Logout to the right */
+    display: flex;
+    gap: 15px; /* Adds spacing between elements */
+}
+
+
+/* Sidebar */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: black;
+    padding-top: 60px;
+    transition: 0.3s;
+    overflow-x: hidden;
+}
+
+.sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: #333;
+}
+
+.closebtn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Menu Button */
+.menu-btn {
+    font-size: 24px;
+    cursor: pointer;
+}
