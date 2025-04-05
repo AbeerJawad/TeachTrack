@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="css/FacultyNotif.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <script defer src="js/dark-mode.js"></script>
+    <script defer src="js/FacultyNotif.js"></script>
+</head>
+<body>
+    <!-- Top Panel -->
+    <header class="top-panel">
+        <div class="dashboard-title">
+            Notifications
+        </div>
+        <div class="top-right">
+            <a href="FacultyDash.html" class="back-dashboard-btn">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-section">
+        <div class="content-area">
+            <h2 class="section-title">Recent Notifications</h2>
+            
+            <div class="notification-controls">
+                <div class="filter-options">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="unread">Unread</button>
+                    <button class="filter-btn" data-filter="feedback">Feedback</button>
+                    <button class="filter-btn" data-filter="system">System</button>
+                </div>
+                <button class="mark-read-btn">Mark all as read</button>
+            </div>
+            
+            <div class="notification-container" id="notificationList">
+                <!-- Notifications will be loaded dynamically -->
+            </div>
+            
+            <div class="pagination" id="pagination">
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn"><i class="fas fa-angle-right"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

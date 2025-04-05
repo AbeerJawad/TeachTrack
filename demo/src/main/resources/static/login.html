@@ -41,22 +41,31 @@
         console.log("Login Response:", data);
 
         if (response.ok) {
-            // Store user data in localStorage
             localStorage.setItem("userEmail", email);
             localStorage.setItem("userRole", data.dtype);
             
-            switch (data.dtype) {
-                case "STUDENT":
-                    window.location.href = "studentdash.html";
-                    break;
-                case "FACULTY":
-                    window.location.href = "facultydash.html";
-                    break;
-                case "ADMIN":
-                    window.location.href = "admindash.html";
-                    break;
-                default:
-                    alert("Unknown user role. Please contact support.");
+            if (data.dtype === "FACULTY") {
+                // Triple-layer storage commit
+                localStorage.setItem("facultyId", data.facultyId);
+                sessionStorage.setItem("facultyId", data.facultyId);
+                
+                // Force storage commit
+                const checkCommit = setInterval(() => {
+                    if (localStorage.getItem("facultyId") === data.facultyId && 
+                        sessionStorage.getItem("facultyId") === data.facultyId) {
+                        clearInterval(checkCommit);
+                        window.location.href = `facultydash.html?facultyId=${data.facultyId}`;
+                    }
+                }, 10);
+                
+            } else if (data.dtype === "STUDENT") {
+                localStorage.setItem("studentId", data.studentId);
+                window.location.href = "studentdash.html";
+            } else if (data.dtype === "ADMIN") {
+                localStorage.setItem("adminId", data.adminId);
+                window.location.href = "AdminDashboard.html";
+            } else {
+                alert("Unknown user role. Please contact support.");
             }
         } else {
             alert(data.error || "Login failed!");
@@ -79,6 +88,14 @@ function togglePassword() {
         showPasswordBtn.textContent = "Show";
     }
 }
+
+console.log("Storage Debug:", {
+  origin: window.location.origin,
+  path: window.location.pathname,
+  facultyId: localStorage.getItem("facultyId"),
+  allStorage: { ...localStorage }
+});
+
     </script>
 
 </body>

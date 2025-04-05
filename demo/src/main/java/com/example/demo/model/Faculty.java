@@ -18,10 +18,6 @@ public class Faculty extends User {
     public String getFacultyId() { return facultyId; }
 
     public void setFacultyId(String facultyId) {
-        if (facultyId == null || facultyId.isEmpty()) {
-            this.facultyId = "FAC-" + System.currentTimeMillis(); // Assign faculty ID
-        } else {
             this.facultyId = facultyId;
-        }
     }
 }

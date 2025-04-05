@@ -15,7 +15,6 @@ public class UserService {
 
     @Transactional
     public String registerUser(User user) {
-        // Ensure dtype is set correctly via instanceof instead of direct dtype check
         if (!(user instanceof Student || user instanceof Faculty || user instanceof Admin)) {
             return "Error: Invalid user type provided.";
         }

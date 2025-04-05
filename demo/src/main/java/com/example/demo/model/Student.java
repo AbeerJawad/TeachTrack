@@ -18,10 +18,6 @@ public class Student extends User {
     public String getStudentId() { return studentId; }
 
     public void setStudentId(String studentId) {
-        if (studentId == null || studentId.isEmpty()) {
-            this.studentId = "STU-" + System.currentTimeMillis(); // Assign student ID on signup
-        } else {
-            this.studentId = studentId;
-        }
+        this.studentId = studentId;
     }
 }

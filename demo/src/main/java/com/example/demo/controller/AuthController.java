@@ -70,13 +70,34 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        Map<String, String> authData = authService.authenticate(request);
+public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    // Debug 1: Log incoming request
+    System.out.println("\n=== LOGIN REQUEST RECEIVED ===");
+    System.out.println("Email: " + request.getEmail());
+    System.out.println("Password: " + "[PROTECTED]"); // Don't log actual passwords in production
     
-        if (authData != null) {
-            return ResponseEntity.ok(authData);
-        } else {
-            return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
+    Map<String, String> authData = authService.authenticate(request);
+    
+    // Debug 2: Log authentication result
+    if (authData != null) {
+        System.out.println("=== AUTHENTICATION SUCCESS ===");
+        System.out.println("User Type: " + authData.get("dtype"));
+        System.out.println("Full Name: " + authData.get("fullName"));
+        
+        // Log role-specific ID if present
+        if (authData.containsKey("facultyId")) {
+            System.out.println("Faculty ID: " + authData.get("facultyId"));
+        } else if (authData.containsKey("studentId")) {
+            System.out.println("Student ID: " + authData.get("studentId"));
+        } else if (authData.containsKey("adminId")) {
+            System.out.println("Admin ID: " + authData.get("adminId"));
         }
+        
+        return ResponseEntity.ok(authData);
+    } else {
+        System.out.println("=== AUTHENTICATION FAILED ===");
+        System.out.println("Reason: Invalid credentials for email: " + request.getEmail());
+        return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
     }
+}
 }

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="css/FacultyProfile.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <script defer src="js/dark-mode.js"></script>
+    <script defer src="js/FacultyProfile.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (localStorage.getItem("darkMode") === "enabled") {
+                document.body.classList.add("dark-mode");
+            }
+        });
+    </script>
+</head>
+<body>
+    <header class="top-panel">
+        <h1>Profile</h1>
+        <a href="FacultyDash.html" class="back-link">Back to Dashboard</a>
+    </header>
+    
+    <div class="page-content">
+        <div class="profile-container">
+            <div class="profile-card">
+                <div class="cover-photo"></div>
+                <div class="profile-pic-container">
+                    <img src="images/pfp.webp" alt="Profile Picture" class="profile-pic">
+                    <div class="edit-pic">✏️</div>
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name">Blah</h2>
+                    <p class="profile-role">Faculty Member</p>
+                    <p class="profile-email">blah@gmail.com</p>
+                    <div class="profile-status">Active</div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Courses</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">108</div>
+                            <div class="stat-label">Students</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">95%</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">IN</a>
+                        <a href="#" class="social-link">TW</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-details">
+                <div class="tabs-container">
+                    <div class="tab active" data-tab="personal-info">Personal Info</div>
+                    <div class="tab" data-tab="activity">Activity</div>
+                    <div class="tab" data-tab="projects">Projects</div>
+                </div>
+                
+                <div class="tab-content">
+                    <!-- Personal Info Tab -->
+                    <div id="personal-info" class="tab-pane active">
+                        <form id="profile-form">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" value="Blah Blah" required disabled>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <div class="input-group">
+                                    <input type="email" id="email" value="blah@gmail.com" required disabled>
+                                    <span class="input-icon"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" value="+92 3312345678" disabled>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <select id="role" disabled>
+                                    <option value="faculty">Doctorate</option>
+                                    <option value="admin">Lecturer</option>
+                                    <option value="staff">Professor</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="bio">Bio</label>
+                                <textarea id="bio" disabled>Professor of Computer Science with 10+ years of teaching experience. Specializing in web development and data structures.</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password">New Password</label>
+                                <input type="password" id="password" placeholder="Enter new password" disabled>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password</label>
+                                <input type="password" id="confirm-password" placeholder="Confirm new password" disabled>
+                            </div>
+                            
+                            <div class="full-width">
+                                <div class="button-group">
+                                    <button type="button" id="editProfileBtn">Edit Profile</button>
+                                    <button type="submit" id="saveChangesBtn" style="display: none;">Save Changes</button>
+                                    <button type="button" id="cancelBtn" class="secondary" style="display: none;">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="success-message" id="successMessage">
+                            Profile updated successfully!
+                        </div>
+                        
+                        <div class="skills-section">
+                            <h3>Skills & Expertise</h3>
+                            <div class="skills-container">
+                                <div class="skill-tag">Web Development</div>
+                                <div class="skill-tag">JavaScript</div>
+                                <div class="skill-tag">Data Structures</div>
+                                <div class="skill-tag">Algorithms</div>
+                                <div class="skill-tag">Python</div>
+                                <div class="skill-tag">Database Design</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Activity Tab -->
+                    <div id="activity" class="tab-pane">
+                        <h3>Recent Activity</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-icon">📚</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Created a new course</div>
+                                    <div class="timeline-date">March 15, 2025</div>
+                                    <div class="timeline-desc">Added "Advanced JavaScript Frameworks" to the curriculum.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">📝</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Published a research paper</div>
+                                    <div class="timeline-date">February 28, 2025</div>
+                                    <div class="timeline-desc">Published "Machine Learning Applications in Education" in the Journal of AI Research.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">🏆</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Received teaching excellence award</div>
+                                    <div class="timeline-date">January 12, 2025</div>
+                                    <div class="timeline-desc">Recognized for outstanding contributions to computer science education.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-icon">👨‍🏫</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Conducted a workshop</div>
+                                    <div class="timeline-date">December 5, 2024</div>
+                                    <div class="timeline-desc">Led a 3-day workshop on "Web Development Best Practices" for faculty members.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Projects Tab -->
+                    <div id="projects" class="tab-pane">
+                        <h3>Current Projects</h3>
+                        <div class="projects-container">
+                            <div class="project-card">
+                                <div class="project-image">Project Image</div>
+                                <div class="project-info">
+                                    <h4 class="project-title">Online Learning Platform</h4>
+                                    <p class="project-desc">A comprehensive platform for interactive online courses with real-time feedback.</p>
+                                    <div class="project-tags">
+                                        <span class="project-tag">React</span>
+                                        <span class="project-tag">Node.js</span>
+                                        <span class="project-tag">MongoDB</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="project-card">
+                                <div class="project-image">Project Image</div>
+                                <div class="project-info">
+                                    <h4 class="project-title">Student Performance Analytics</h4>
+                                    <p class="project-desc">Data-driven insights to improve student outcomes and personalize learning.</p>
+                                    <div class="project-tags">
+                                        <span class="project-tag">Python</span>
+                                        <span class="project-tag">TensorFlow</span>
+                                        <span class="project-tag">Data Visualization</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="project-card">
+                                <div class="project-image">Project Image</div>
+                                <div class="project-info">
+                                    <h4 class="project-title">Curriculum Development Tool</h4>
+                                    <p class="project-desc">A collaborative tool for faculty to create and update course materials.</p>
+                                    <div class="project-tags">
+                                        <span class="project-tag">Vue.js</span>
+                                        <span class="project-tag">Firebase</span>
+                                        <span class="project-tag">Express</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="project-card">
+                                <div class="project-image">Project Image</div>
+                                <div class="project-info">
+                                    <h4 class="project-title">Research Database</h4>
+                                    <p class="project-desc">Centralized repository for research papers, data, and collaboration.</p>
+                                    <div class="project-tags">
+                                        <span class="project-tag">SQL</span>
+                                        <span class="project-tag">Django</span>
+                                        <span class="project-tag">AWS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,10 +1,17 @@
 function toggleSidebar() {
-    let sidebar = document.getElementById("sidebar");
-    if (sidebar.style.width === "250px") {
-        sidebar.style.width = "0";
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-280px";
+        document.querySelector('.main-section').style.marginLeft = "0";
     } else {
-        sidebar.style.width = "250px";
+        sidebar.style.left = "0px";
+        document.querySelector('.main-section').style.marginLeft = "280px";
     }
+}
+
+// Toggle Evaluation Menu
+function toggleEvaluationMenu() {
+    document.getElementById("expanded-menu").classList.toggle("hidden");
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -307,3 +314,41 @@ function setupLogout() {
         });
     }
 }
+
+
+// Dark Mode Toggle
+document.addEventListener("DOMContentLoaded", function() {
+    // Initialize data
+    loadEvaluationData();
+    
+    // Dark Mode Logic
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener("change", function() {
+            if (this.checked) {
+                document.body.classList.add("dark-mode");
+                localStorage.setItem("darkMode", "enabled");
+            } else {
+                document.body.classList.remove("dark-mode");
+                localStorage.setItem("darkMode", "disabled");
+            }
+        });
+    }
+    
+    // Check existing dark mode preference
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+});
+
+// Refresh Button Animation
+document.addEventListener("click", function(e) {
+    if (e.target.closest(".refresh-btn")) {
+        const refreshBtn = e.target.closest(".refresh-btn");
+        refreshBtn.classList.add("spinning");
+        setTimeout(() => {
+            refreshBtn.classList.remove("spinning");
+            loadEvaluationData(); // Reload data on refresh
+        }, 1000);
+    }
+});
