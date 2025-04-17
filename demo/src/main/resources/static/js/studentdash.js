@@ -30,19 +30,49 @@ document.addEventListener('DOMContentLoaded', function() {
     loadStudentDashboard(userEmail);
     
     // Add event listeners
-    document.getElementById("searchInput").addEventListener("input", filterFaculty);
-    document.getElementById("departmentFilter").addEventListener("change", filterFaculty);
-    document.getElementById("clearFilter").addEventListener("click", clearFilters);
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+        searchInput.addEventListener("input", filterEvaluations);
+    }
+    
+    const departmentFilter = document.getElementById("departmentFilter");
+    if (departmentFilter) {
+        departmentFilter.addEventListener("change", filterEvaluations);
+    }
+    
+    // Setup refresh buttons
+    document.querySelectorAll('.refresh-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.classList.add("spinning");
+            setTimeout(() => {
+                this.classList.remove("spinning");
+                loadStudentDashboard(userEmail);
+            }, 1000);
+        });
+    });
     
     // Setup logout functionality
-    setupLogout();
+    const logoutLink = document.querySelector('a[href="login.html"]');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("userRole");
+            localStorage.removeItem("userName");
+            window.location.href = "login.html";
+        });
+    }
 });
 
 // Load student dashboard data
 async function loadStudentDashboard(email) {
     try {
         // Show loading state
-        document.querySelector('.content').innerHTML += '<div id="loading">Loading dashboard data...</div>';
+        const contentArea = document.querySelector('.content-area');
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = 'loading';
+        loadingDiv.textContent = 'Loading dashboard data...';
+        contentArea.appendChild(loadingDiv);
         
         // Fetch student data from backend
         const response = await fetch(`http://localhost:8080/dashboard/student/${email}`);
@@ -57,10 +87,10 @@ async function loadStudentDashboard(email) {
         // Remove loading indicator
         document.getElementById("loading")?.remove();
         
-        // Update dashboard with student info
-        updateDashboardWithStudentData(data);
+        // Update welcome banner with student name
+        document.querySelector('.welcome-banner h1').textContent = `Welcome, ${data.fullName || 'Student'}!`;
         
-        // Update stats boxes with data from backend
+        // Update stats boxes
         updateStatBoxes(data.stats);
         
         // Load evaluations
@@ -69,48 +99,39 @@ async function loadStudentDashboard(email) {
     } catch (error) {
         console.error("Error loading dashboard:", error);
         document.getElementById("loading")?.remove();
-        document.querySelector('.content').innerHTML += '<div class="error-message">Failed to load dashboard data. Please refresh the page or try again later.</div>';
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = 'Failed to load dashboard data. Please refresh the page or try again later.';
+        
+        document.querySelector('.content-area').appendChild(errorDiv);
     }
 }
 
-// Update dashboard UI with student data
-function updateDashboardWithStudentData(studentData) {
-    // Add welcome message with student name
-    const dashboardTitle = document.querySelector('.content h1');
-    dashboardTitle.textContent = `Welcome, ${studentData.fullName || 'Student'}!`;
-    
-    // Add student ID if available
-    if (studentData.studentId) {
-        const studentIdElement = document.createElement('p');
-        studentIdElement.className = 'student-id';
-        studentIdElement.textContent = `Student ID: ${studentData.studentId}`;
-        dashboardTitle.insertAdjacentElement('afterend', studentIdElement);
-    }
-}
-
-// Update statistics boxes with data from backend
+// Update statistics boxes
 function updateStatBoxes(stats) {
     if (!stats) return;
     
-    const statBoxes = document.querySelectorAll('.stat-box');
-    
     // Update pending evaluations count
-    if (stats.pendingEvaluations !== undefined && statBoxes[0]) {
-        statBoxes[0].querySelector('h2').textContent = stats.pendingEvaluations;
+    const pendingEvals = document.getElementById('pendingEvaluations');
+    if (pendingEvals && stats.pendingEvaluations !== undefined) {
+        pendingEvals.textContent = stats.pendingEvaluations;
     }
     
     // Update completed evaluations count
-    if (stats.completedEvaluations !== undefined && statBoxes[1]) {
-        statBoxes[1].querySelector('h2').textContent = stats.completedEvaluations;
+    const completedEvals = document.getElementById('completedEvaluations');
+    if (completedEvals && stats.completedEvaluations !== undefined) {
+        completedEvals.textContent = stats.completedEvaluations;
     }
     
     // Update next due date
-    if (stats.nextDueDate && statBoxes[2]) {
-        statBoxes[2].querySelector('h2').textContent = stats.nextDueDate;
+    const upcomingDeadline = document.getElementById('upcomingDeadline');
+    if (upcomingDeadline && stats.nextDueDate) {
+        upcomingDeadline.textContent = stats.nextDueDate;
     }
 }
 
-// Load pending and completed evaluations
+// Load evaluations data
 async function loadEvaluations(email) {
     try {
         // Fetch evaluations from the backend
@@ -124,74 +145,248 @@ async function loadEvaluations(email) {
         console.log("Evaluations:", evaluations);
         
         // Update the UI with the fetched evaluations
-        updateEvaluationsUI(evaluations);
+        updatePendingEvaluationsTable(evaluations.pending);
+        updateCompletedEvaluationsTable(evaluations.completed);
+        
+        // Update department filter options
+        updateDepartmentFilterOptions(evaluations);
         
     } catch (error) {
         console.error("Error loading evaluations:", error);
-        const errorMsg = document.createElement('div');
-        errorMsg.className = 'error-message';
-        errorMsg.textContent = 'Failed to load evaluations. Please refresh the page.';
-        document.querySelector('.content').appendChild(errorMsg);
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = 'Failed to load evaluations. Please refresh the page.';
+        
+        document.querySelector('.content-area').appendChild(errorDiv);
     }
 }
 
-// Update UI with evaluation data
-function updateEvaluationsUI(evaluationData) {
-    // Update pending evaluations
-    const pendingContainer = document.querySelector('.evaluation-container');
-    if (pendingContainer && evaluationData.pending && evaluationData.pending.length > 0) {
-        pendingContainer.innerHTML = ''; // Clear existing cards
-        
-        evaluationData.pending.forEach(eval => {
-            pendingContainer.innerHTML += `
-                <div class="evaluation-card">
-                    <h3>${eval.facultyName}</h3>
-                    <p>Course: ${eval.courseName}</p>
-                    <p>Department: ${eval.department}</p>
-                    <p class="due-date">Due: ${formatDate(eval.dueDate)}</p>
-                    <button class="feedback-btn" data-id="${eval.id}">Give Feedback</button>
-                </div>
+// Update pending evaluations table
+function updatePendingEvaluationsTable(pendingEvaluations) {
+    const tableBody = document.getElementById('pendingEvaluationTable');
+    if (!tableBody) return;
+    
+    tableBody.innerHTML = '';
+    
+    if (pendingEvaluations && pendingEvaluations.length > 0) {
+        pendingEvaluations.forEach(eval => {
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td>${eval.courseCode} - ${eval.courseName}</td>
+                <td>${eval.facultyName}</td>
+                <td>${formatDate(eval.dueDate)}</td>
+                <td>
+                    <button class="action-btn evaluate-btn" data-id="${eval.id}" 
+                    data-faculty="${eval.facultyId}" data-course="${eval.courseName}">
+                        <i class="fas fa-edit"></i> Evaluate
+                    </button>
+                </td>
             `;
+            
+            tableBody.appendChild(row);
         });
-    } else if (pendingContainer && (!evaluationData.pending || evaluationData.pending.length === 0)) {
-        pendingContainer.innerHTML = '<p class="no-evaluations">No pending evaluations found.</p>';
+        
+        // Add event listeners to evaluation buttons
+        document.querySelectorAll('.evaluate-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const evalId = this.getAttribute('data-id');
+                const facultyId = this.getAttribute('data-faculty');
+                const courseName = this.getAttribute('data-course');
+                openEvaluationForm(evalId, facultyId, courseName);
+            });
+        });
+    } else {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="4" class="no-data">No pending evaluations found.</td>`;
+        tableBody.appendChild(row);
+    }
+}
+
+// Update completed evaluations table
+function updateCompletedEvaluationsTable(completedEvaluations) {
+    const tableBody = document.getElementById('completedEvaluationTable');
+    if (!tableBody) return;
+    
+    tableBody.innerHTML = '';
+    
+    if (completedEvaluations && completedEvaluations.length > 0) {
+        completedEvaluations.forEach(eval => {
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td>${eval.courseCode} - ${eval.courseName}</td>
+                <td>${eval.facultyName}</td>
+                <td>${formatDate(eval.submissionDate)}</td>
+                <td>
+                    <button class="action-btn view-btn" data-id="${eval.id}">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                </td>
+            `;
+            
+            tableBody.appendChild(row);
+        });
+        
+        // Add event listeners to view buttons
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const evalId = this.getAttribute('data-id');
+                viewEvaluationDetails(evalId);
+            });
+        });
+    } else {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="4" class="no-data">No completed evaluations found.</td>`;
+        tableBody.appendChild(row);
+    }
+}
+
+// Update department filter options
+function updateDepartmentFilterOptions(evaluations) {
+    const departmentFilter = document.getElementById('departmentFilter');
+    if (!departmentFilter) return;
+    
+    const departments = new Set();
+    
+    // Extract unique departments from evaluations
+    if (evaluations.pending) {
+        evaluations.pending.forEach(eval => {
+            if (eval.department) departments.add(eval.department);
+        });
     }
     
-    // Update completed evaluations
-    const completedContainer = document.querySelectorAll('.evaluation-container')[1];
-    if (completedContainer && evaluationData.completed && evaluationData.completed.length > 0) {
-        completedContainer.innerHTML = ''; // Clear existing cards
-        
-        evaluationData.completed.forEach(eval => {
-            completedContainer.innerHTML += `
-                <div class="evaluation-card completed">
-                    <h3>${eval.facultyName}</h3>
-                    <p>Course: ${eval.courseName}</p>
-                    <p>Department: ${eval.department}</p>
-                    <p class="submission-date">Submitted: ${formatDate(eval.submissionDate)}</p>
-                    <button class="completed-btn" disabled>Feedback Submitted</button>
-                </div>
-            `;
+    if (evaluations.completed) {
+        evaluations.completed.forEach(eval => {
+            if (eval.department) departments.add(eval.department);
         });
-    } else if (completedContainer && (!evaluationData.completed || evaluationData.completed.length === 0)) {
-        completedContainer.innerHTML = '<p class="no-evaluations">No completed evaluations found.</p>';
     }
     
-    // Add event listeners to feedback buttons
-    document.querySelectorAll('.feedback-btn').forEach(btn => {
-        btn.addEventListener('click', () => openFeedbackForm(btn.dataset.id));
+    // Keep the "All Departments" option
+    departmentFilter.innerHTML = '<option value="">All Departments</option>';
+    
+    // Add department options
+    departments.forEach(dept => {
+        const option = document.createElement('option');
+        option.value = dept;
+        option.textContent = dept;
+        departmentFilter.appendChild(option);
     });
-    
-    // Update department filter options based on available departments
-    updateDepartmentFilter(evaluationData);
 }
 
-// Helper function to format dates from ISO string
+// Filter evaluations based on search and department
+function filterEvaluations() {
+    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+    const department = document.getElementById("departmentFilter").value;
+    
+    // Filter function for table rows
+    function filterTable(tableId) {
+        const table = document.getElementById(tableId);
+        if (!table) return 0;
+        
+        const rows = table.querySelectorAll('tr:not(:first-child)');
+        let visibleCount = 0;
+        
+        rows.forEach(row => {
+            if (row.querySelector('.no-data')) return;
+            
+            const courseFaculty = row.querySelector('td:nth-child(1)').textContent.toLowerCase() + ' ' +
+                                 row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            
+            // We need to get department from the data attribute or from a specific column
+            const rowDept = row.getAttribute('data-department') || '';
+            
+            const matchesSearch = courseFaculty.includes(searchTerm);
+            const matchesDepartment = department === '' || rowDept.includes(department.toLowerCase());
+            
+            if (matchesSearch && matchesDepartment) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        
+        return visibleCount;
+    }
+    
+    // Apply filters to both tables
+    const pendingVisible = filterTable('pendingEvaluationTable');
+    const completedVisible = filterTable('completedEvaluationTable');
+    
+    // Show "no results" message if needed
+    handleNoResults(pendingVisible, 'pendingEvaluationTable');
+    handleNoResults(completedVisible, 'completedEvaluationTable');
+}
+
+// Handle "no results" message
+function handleNoResults(visibleCount, tableId) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+    
+    // Remove any existing no results row
+    const existingNoResults = table.querySelector('.no-results-row');
+    if (existingNoResults) {
+        existingNoResults.remove();
+    }
+    
+    // Add no results message if needed
+    if (visibleCount === 0) {
+        const noResultsRow = document.createElement('tr');
+        noResultsRow.className = 'no-results-row';
+        noResultsRow.innerHTML = `<td colspan="4" class="no-data">No evaluations match your search criteria.</td>`;
+        table.appendChild(noResultsRow);
+    }
+}
+
+// Open evaluation form
+function openEvaluationForm(courseId, facultyId, courseName) {
+    const studentId = localStorage.getItem('studentId');
+    
+    // Here you would typically open a modal with a form
+    alert(`Opening evaluation form for ${courseName}`);
+    
+    // Example implementation:
+    // const modal = document.createElement('div');
+    // modal.className = 'modal';
+    // modal.innerHTML = `
+    //     <div class="modal-content">
+    //         <span class="close">&times;</span>
+    //         <h2>Evaluate: ${courseName}</h2>
+    //         <form id="evaluationForm">
+    //             <div class="rating-container">
+    //                 <p>Rate this course:</p>
+    //                 <div class="star-rating">
+    //                     <input type="radio" name="rating" value="5" id="star5"><label for="star5"></label>
+    //                     <input type="radio" name="rating" value="4" id="star4"><label for="star4"></label>
+    //                     <input type="radio" name="rating" value="3" id="star3"><label for="star3"></label>
+    //                     <input type="radio" name="rating" value="2" id="star2"><label for="star2"></label>
+    //                     <input type="radio" name="rating" value="1" id="star1"><label for="star1"></label>
+    //                 </div>
+    //             </div>
+    //             <div class="form-group">
+    //                 <label for="comments">Comments:</label>
+    //                 <textarea id="comments" placeholder="Share your thoughts about this course..."></textarea>
+    //             </div>
+    //             <button type="submit" class="submit-btn">Submit Feedback</button>
+    //         </form>
+    //     </div>
+    // `;
+    // document.body.appendChild(modal);
+}
+
+// View evaluation details
+function viewEvaluationDetails(evaluationId) {
+    // Here you would typically open a modal showing details
+    alert(`Viewing details for evaluation ID: ${evaluationId}`);
+}
+
+// Helper function to format dates
 function formatDate(dateString) {
     if (!dateString) return 'N/A';
     
     try {
-        // Remove any time component and keep just the date
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
             year: 'numeric',
@@ -203,152 +398,3 @@ function formatDate(dateString) {
         return dateString;
     }
 }
-
-// Update department filter with all departments from evaluations
-function updateDepartmentFilter(evaluationData) {
-    const departmentSet = new Set();
-    
-    // Collect all unique departments
-    if (evaluationData.pending) {
-        evaluationData.pending.forEach(eval => {
-            if (eval.department) departmentSet.add(eval.department);
-        });
-    }
-    
-    if (evaluationData.completed) {
-        evaluationData.completed.forEach(eval => {
-            if (eval.department) departmentSet.add(eval.department);
-        });
-    }
-    
-    // Update the department filter dropdown
-    const departmentFilter = document.getElementById('departmentFilter');
-    
-    // Keep the "All Departments" option
-    departmentFilter.innerHTML = '<option value="">All Departments</option>';
-    
-    // Add all departments as options
-    departmentSet.forEach(department => {
-        const option = document.createElement('option');
-        option.value = department;
-        option.textContent = department;
-        departmentFilter.appendChild(option);
-    });
-}
-
-// Filter faculty based on search and department
-function filterFaculty() {
-    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-    const department = document.getElementById("departmentFilter").value;
-    
-    const cards = document.querySelectorAll('.evaluation-card');
-    let visibleCount = 0;
-    
-    cards.forEach(card => {
-        const facultyName = card.querySelector('h3').textContent.toLowerCase();
-        const courseName = card.querySelector('p:nth-child(2)').textContent.toLowerCase();
-        const facultyDept = card.querySelector('p:nth-child(3)').textContent.toLowerCase();
-        
-        const matchesSearch = facultyName.includes(searchTerm) || courseName.includes(searchTerm);
-        const matchesDepartment = department === '' || facultyDept.includes(department.toLowerCase());
-        
-        if (matchesSearch && matchesDepartment) {
-            card.style.display = 'block';
-            visibleCount++;
-        } else {
-            card.style.display = 'none';
-        }
-    });
-    
-    // Show message if no cards are visible after filtering
-    const noResults = document.querySelectorAll('.no-results');
-    noResults.forEach(el => el.remove()); // Remove any existing no results messages
-    
-    if (visibleCount === 0) {
-        const pendingContainer = document.querySelector('.evaluation-container');
-        const completedContainer = document.querySelectorAll('.evaluation-container')[1];
-        
-        // Add "no results" message to both containers
-        const noResultsMsg = document.createElement('p');
-        noResultsMsg.className = 'no-results';
-        noResultsMsg.textContent = 'No evaluations match your filter criteria.';
-        
-        pendingContainer.appendChild(noResultsMsg.cloneNode(true));
-        completedContainer.appendChild(noResultsMsg);
-    }
-}
-
-// Clear search and filter fields
-function clearFilters() {
-    document.getElementById("searchInput").value = '';
-    document.getElementById("departmentFilter").value = '';
-    
-    // Show all cards
-    document.querySelectorAll('.evaluation-card').forEach(card => {
-        card.style.display = 'block';
-    });
-    
-    // Remove any "no results" messages
-    document.querySelectorAll('.no-results').forEach(el => el.remove());
-}
-
-// Function to open feedback form (to be implemented)
-function openFeedbackForm(evaluationId) {
-    console.log(`Opening feedback form for evaluation ID: ${evaluationId}`);
-    // This would typically open a modal or redirect to a feedback form page
-    alert("Feedback form functionality will be implemented in the future.");
-}
-
-// Setup logout functionality
-function setupLogout() {
-    const logoutBtn = document.querySelector('.nav-right span:nth-child(3)');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
-            // Clear user data from localStorage
-            localStorage.removeItem("userEmail");
-            localStorage.removeItem("userRole");
-            localStorage.removeItem("userName");
-            
-            // Redirect to login page
-            window.location.href = "login.html";
-        });
-    }
-}
-
-
-// Dark Mode Toggle
-document.addEventListener("DOMContentLoaded", function() {
-    // Initialize data
-    loadEvaluationData();
-    
-    // Dark Mode Logic
-    const darkModeToggle = document.getElementById("darkModeToggle");
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener("change", function() {
-            if (this.checked) {
-                document.body.classList.add("dark-mode");
-                localStorage.setItem("darkMode", "enabled");
-            } else {
-                document.body.classList.remove("dark-mode");
-                localStorage.setItem("darkMode", "disabled");
-            }
-        });
-    }
-    
-    // Check existing dark mode preference
-    if (localStorage.getItem("darkMode") === "enabled") {
-        document.body.classList.add("dark-mode");
-    }
-});
-
-// Refresh Button Animation
-document.addEventListener("click", function(e) {
-    if (e.target.closest(".refresh-btn")) {
-        const refreshBtn = e.target.closest(".refresh-btn");
-        refreshBtn.classList.add("spinning");
-        setTimeout(() => {
-            refreshBtn.classList.remove("spinning");
-            loadEvaluationData(); // Reload data on refresh
-        }, 1000);
-    }
-});

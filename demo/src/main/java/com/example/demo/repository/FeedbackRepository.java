@@ -28,4 +28,11 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
     @Query("SELECT f FROM Feedback f JOIN Course c ON f.courseId = c.id WHERE f.facultyId = :facultyId")
     List<Feedback> findByFacultyIdWithCourses(@Param("facultyId") String facultyId);
+
+
+    //for student dash
+    List<Feedback> findByStudentId(String studentId);
+    List<Feedback> findByCourseId(Long courseId);
+    List<Feedback> findByFacultyId(String facultyId);
+    Feedback findByStudentIdAndCourseId(String studentId, Long courseId);
 }

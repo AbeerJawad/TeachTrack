@@ -52,11 +52,13 @@ public abstract class User {
     public LocalDate getDateOfBirth() { return dateOfBirth; }
     public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
-    public String getDtype() { return dtype; }  // Getter for dtype
+    public String getDtype() { return dtype; }  
 
     public String getUserRole() {
         return this.getDtype();  
     }
     
-    
+    public String getFacultyId() {
+        return null; 
+    }
 }

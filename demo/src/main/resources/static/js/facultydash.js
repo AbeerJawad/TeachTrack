@@ -42,17 +42,17 @@ function renderStars(rating) {
 }
 
 // Main function to load faculty dashboard data
-async function loadFacultyDashboard(facultyId = null, courseFilter = null) {
-    if (!facultyId) {
-        facultyId = getFacultyId();
-        if (!facultyId) return;
+async function loadFacultyDashboard(userId = null, courseFilter = null) {
+    if (!userId) {
+        userId = getUserId();
+        if (!userId) return;
     }
     
     try {
         // Prepare the URL, add course filter if available
-        let url = `/dashboard/faculty/feedback/${facultyId}`;
+        let url = `/dashboard/faculty/feedback/${userId}`;
         if (courseFilter) {
-            url = `/dashboard/faculty/feedback/${facultyId}/filter?courseCode=${courseFilter}`;
+            url = `/dashboard/faculty/feedback/${userId}/filter?courseCode=${courseFilter}`;
         }
         
         const response = await fetch(url);
@@ -68,7 +68,7 @@ async function loadFacultyDashboard(facultyId = null, courseFilter = null) {
         updateFacultyDashboard(data);
         
         // Also load course options for filter
-        loadCourseOptions(facultyId);
+        loadCourseOptions(userId);
         
         return data;
     } catch (error) {
@@ -119,10 +119,10 @@ function updateFacultyDashboard(facultyData) {
 }
 
 // Load course options for filter dropdown
-async function loadCourseOptions(facultyId) {
+async function loadCourseOptions(userId) {
     try {
-        console.log(`Fetching courses for faculty ID: ${facultyId}`);
-        const response = await fetch(`/dashboard/faculty/courses/${facultyId}`);
+        console.log(`Fetching courses for user ID: ${userId}`);
+        const response = await fetch(`/dashboard/faculty/courses/${userId}`);
         
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -168,8 +168,8 @@ function searchFeedback() {
     
     if (!searchTerm) {
         // If search term is empty, reload all feedback
-        const facultyId = getFacultyId();
-        loadFacultyDashboard(facultyId);
+        const userId = getUserId();
+        loadFacultyDashboard(userId);
         return;
     }
     
@@ -200,55 +200,54 @@ function respondToFeedback(feedbackId) {
     window.location.href = `respond.html?feedbackId=${feedbackId}`;
 }
 
-// Utility function to get faculty ID from URL or storage
-function getFacultyId() {
+function getUserId() {
     // 1. Check URL params first
     const urlParams = new URLSearchParams(window.location.search);
-    let facultyId = urlParams.get('facultyId');
+    let userId = urlParams.get('userId');
     
     // 2. Fallback to storage
-    if (!facultyId) {
-        facultyId = localStorage.getItem("facultyId") || 
-                   sessionStorage.getItem("facultyId");
+    if (!userId) {
+        userId = localStorage.getItem("userId") || 
+                sessionStorage.getItem("userId");
     }
     
     // 3. Final validation
-    if (!facultyId || !facultyId.startsWith("FAC-")) {
-        console.error("Invalid faculty ID:", facultyId);
+    if (!userId) {
+        console.error("Invalid user ID:", userId);
         
         window.location.href = "login.html";
         return null;
     }
     
-    return facultyId;
+    return userId;
 }
 
 // Handle course filter changes
 function handleCourseFilter() {
     const courseFilter = document.getElementById("courseFilter");
     const selectedCourse = courseFilter.value;
-    const facultyId = getFacultyId();
+    const userId = getUserId();
     
     if (selectedCourse) {
-        loadFacultyDashboard(facultyId, selectedCourse);
+        loadFacultyDashboard(userId, selectedCourse);
     } else {
-        loadFacultyDashboard(facultyId);
+        loadFacultyDashboard(userId);
     }
 }
 
 // Reload feedback data (for refresh button)
 function loadFeedbackData() {
-    const facultyId = getFacultyId();
-    loadFacultyDashboard(facultyId);
+    const userId = getUserId();
+    loadFacultyDashboard(userId);
 }
 
 // Initialize dashboard
 document.addEventListener("DOMContentLoaded", function() {
-    const facultyId = getFacultyId();
-    if (!facultyId) return;
+    const userId = getUserId();
+    if (!userId) return;
     
-    console.log("Bootstrapped facultyId:", facultyId);
-    loadFacultyDashboard(facultyId);
+    console.log("Bootstrapped userId:", userId);
+    loadFacultyDashboard(userId);
     
     // Add event listeners
     const courseFilter = document.getElementById("courseFilter");
@@ -278,4 +277,3 @@ document.addEventListener("DOMContentLoaded", function() {
         filterBtn.addEventListener('click', handleCourseFilter);
     }
 });
-
