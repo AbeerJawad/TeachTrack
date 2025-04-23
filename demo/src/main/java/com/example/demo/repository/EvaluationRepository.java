@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository
 public interface EvaluationRepository extends JpaRepository<Feedback, Long> {
-    // Update methods to use String for facultyId
+    // 12test Update methods to use String for facultyId
     List<Feedback> findByFacultyId(String facultyId);  // Updated to String
     List<Feedback> findByFacultyIdAndCourseId(String facultyId, Long courseId);  // Updated to String for facultyId
 }
