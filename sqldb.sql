@@ -210,7 +210,7 @@ INSERT INTO project_tags (project_id, tag_name) VALUES
 SELECT f.id, f.student_id, f.course_id, f.rating, f.comments
 FROM feedback f
 JOIN users u ON f.faculty_id = u.faculty_id
-WHERE u.faculty_id = 'FAC-2' AND f.rating > 3;
+WHERE u.id = 5 AND f.rating > 3;
 
 SELECT f.id, f.student_id, f.course_id, f.rating, f.comments
 FROM feedback f
@@ -279,6 +279,9 @@ select * from users;
 select * from courses;
 select * from student_courses;
 select * from feedback;
+
+
+
 
 
 

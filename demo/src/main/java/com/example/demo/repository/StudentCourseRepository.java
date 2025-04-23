@@ -13,9 +13,4 @@ import java.util.List;
 public interface StudentCourseRepository extends JpaRepository<StudentCourse, Long> {
     List<StudentCourse> findByStudent(Student student);
     List<StudentCourse> findByCourse(Course course);
-
-    List<StudentCourse> findByStudentStudentId(String studentId);
-    @Query("SELECT sc.course FROM StudentCourse sc WHERE sc.student.studentId = :studentId")
-    List<Course> findCoursesByStudentId(@Param("studentId") String studentId);
 }
-

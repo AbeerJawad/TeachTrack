@@ -30,7 +30,7 @@ public class FacultyDashController {
     
     @GetMapping("/feedback/{userId}")
     public ResponseEntity<?> getFacultyFeedback(@PathVariable Long userId) {
-        // Enhanced debug logging
+        // debug logging
         System.out.println("\n=== Faculty Feedback Request ===");
         System.out.println("Incoming userId: '" + userId + "'");
 
@@ -127,7 +127,7 @@ public class FacultyDashController {
     public ResponseEntity<?> getFilteredFeedback(@PathVariable Long userId, @RequestParam String courseCode) {
         System.out.println("Received request to filter feedback for user: " + userId + " with course: " + courseCode);
         
-        // First, get the faculty member by user ID
+        //get the faculty member by user ID
         Optional<User> userOptional = userRepository.findById(userId);
         
         if (userOptional.isEmpty() || !(userOptional.get() instanceof Faculty)) {
@@ -144,4 +144,5 @@ public class FacultyDashController {
         
         return ResponseEntity.ok(filteredFeedback);
     }
+    
 }

@@ -38,8 +38,4 @@ public class Course {
     public void setFaculty(Faculty faculty) { this.faculty = faculty; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
-    public Object getDepartment() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDepartment'");
-    }
 }

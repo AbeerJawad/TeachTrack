@@ -197,7 +197,7 @@ function viewFeedbackDetails(feedbackId) {
 // Respond to feedback (placeholder for future implementation)
 function respondToFeedback(feedbackId) {
     console.log(`Respond to feedback ID: ${feedbackId}`);
-    window.location.href = `respond.html?feedbackId=${feedbackId}`;
+    window.location.href = `FacultyRespond.html?feedbackId=${feedbackId}`;
 }
 
 function getUserId() {

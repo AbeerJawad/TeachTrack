@@ -14,7 +14,9 @@ import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class EvaluationServiceImpl implements EvaluationService {
@@ -103,6 +105,35 @@ public class EvaluationServiceImpl implements EvaluationService {
         }
         
         return feedbackList;
+    }
+
+    //new
+    @Override
+    public Optional<Feedback> getFeedbackById(Long feedbackId) {
+        return feedbackRepository.findById(feedbackId);
+    }
+    
+    @Override
+    public List<Feedback> getFeedbackByCourseId(Long courseId) {
+        // This would require a new method in your repository
+        // For now, we'll filter all feedback to find matching course IDs
+        return feedbackRepository.findAll().stream()
+            .filter(feedback -> feedback.getCourseId().equals(courseId))
+            .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<Feedback> getSimilarFeedback(Long feedbackId, Long courseId) {
+        // Get feedback with the same course ID but excluding the current feedback
+        return feedbackRepository.findAll().stream()
+            .filter(feedback -> feedback.getCourseId().equals(courseId) && !feedback.getId().equals(feedbackId))
+            .limit(5) // Limit to 5 similar feedback items
+            .collect(Collectors.toList());
+    }
+    
+    @Override
+    public Long getTotalFeedbackCount(String facultyId) {
+        return feedbackRepository.countByFacultyId(facultyId);
     }
 
 }
