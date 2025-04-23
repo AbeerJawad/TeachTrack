@@ -27,7 +27,7 @@ public class FacultyDashController {
         this.userRepository = userRepository;
         this.evaluationService = evaluationService;
     }
-    
+
     @GetMapping("/feedback/{userId}")
     public ResponseEntity<?> getFacultyFeedback(@PathVariable Long userId) {
         // debug logging
@@ -38,9 +38,8 @@ public class FacultyDashController {
         if (userId == null) {
             System.out.println("Validation failed: User ID is null");
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "User ID is required",
-                "receivedId", userId
-            ));
+                    "error", "User ID is required",
+                    "receivedId", userId));
         }
 
         // Query the database
@@ -50,20 +49,18 @@ public class FacultyDashController {
         if (userOptional.isEmpty()) {
             System.out.println("Database query: No user found with userId: " + userId);
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Invalid user ID",
-                "details", "No user found with this ID",
-                "receivedId", userId
-            ));
+                    "error", "Invalid user ID",
+                    "details", "No user found with this ID",
+                    "receivedId", userId));
         }
 
         User user = userOptional.get();
         if (!(user instanceof Faculty)) {
             System.out.println("Type mismatch: User with ID " + userId + " is not a Faculty");
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Invalid user ID",
-                "details", "User exists but is not a Faculty member",
-                "userType", user.getDtype()
-            ));
+                    "error", "Invalid user ID",
+                    "details", "User exists but is not a Faculty member",
+                    "userType", user.getDtype()));
         }
 
         // Success case
@@ -73,14 +70,14 @@ public class FacultyDashController {
         // Get faculty ID for service calls
         String facultyId = faculty.getFacultyId();
 
-        // Prepare response with actual data
+        // Prepare response with actual data here
         Map<String, Object> response = new HashMap<>();
         response.put("userId", userId);
         response.put("facultyId", facultyId);
         response.put("fullName", faculty.getFullName());
         response.put("email", faculty.getEmail());
-        
-        // Include feedback data 
+
+        // Include feedback data
         List<Feedback> feedbackList = evaluationService.getEvaluationsByFaculty(facultyId);
         response.put("feedbackCount", feedbackList.size());
         response.put("averageRating", evaluationService.getAverageRating(facultyId));
@@ -98,51 +95,48 @@ public class FacultyDashController {
     @GetMapping("/courses/{userId}")
     public ResponseEntity<?> getFacultyCourses(@PathVariable Long userId) {
         System.out.println("Retrieving courses for user ID: " + userId);
-        
+
         if (userId == null) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "User ID is required"
-            ));
+                    "error", "User ID is required"));
         }
-        
+
         // First, get the faculty member by user ID
         Optional<User> userOptional = userRepository.findById(userId);
-        
+
         if (userOptional.isEmpty() || !(userOptional.get() instanceof Faculty)) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Invalid user ID or user is not a faculty member"
-            ));
+                    "error", "Invalid user ID or user is not a faculty member"));
         }
-        
+
         Faculty faculty = (Faculty) userOptional.get();
         String facultyId = faculty.getFacultyId();
-        
+
         List<Course> courses = evaluationService.getCoursesByFaculty(facultyId);
         System.out.println("Found " + courses.size() + " courses for faculty ID: " + facultyId);
-        
+
         return ResponseEntity.ok(courses);
     }
 
     @GetMapping("/feedback/{userId}/filter")
     public ResponseEntity<?> getFilteredFeedback(@PathVariable Long userId, @RequestParam String courseCode) {
         System.out.println("Received request to filter feedback for user: " + userId + " with course: " + courseCode);
-        
-        //get the faculty member by user ID
+
+        // get the faculty member by user ID
         Optional<User> userOptional = userRepository.findById(userId);
-        
+
         if (userOptional.isEmpty() || !(userOptional.get() instanceof Faculty)) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Invalid user ID or user is not a faculty member"
-            ));
+                    "error", "Invalid user ID or user is not a faculty member"));
         }
-        
+
         Faculty faculty = (Faculty) userOptional.get();
         String facultyId = faculty.getFacultyId();
-        
+
         // Now get evaluations filtered by course code
         List<Feedback> filteredFeedback = evaluationService.getEvaluationsByFacultyAndCourse(facultyId, courseCode);
-        
+
         return ResponseEntity.ok(filteredFeedback);
     }
-    
+
 }
