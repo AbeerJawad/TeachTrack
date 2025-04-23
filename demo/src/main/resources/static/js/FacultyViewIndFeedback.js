@@ -1,41 +1,205 @@
-// Function to get feedback details from URL parameters
-function getFeedbackDetails() {
+// Main function to load feedback details when the page loads
+function loadFeedbackDetails() {
+    // Get the feedback ID from the URL
     const urlParams = new URLSearchParams(window.location.search);
-    const course = urlParams.get('course') || 'Not Specified';
-    const studentId = urlParams.get('id') || 'Anonymous';
-    const rating = urlParams.get('rating') || '0';
-    const comments = urlParams.get('comments') || 'No comments provided';
-    const date = urlParams.get('date') || 'Not Available';
-    // Populate the page with feedback details
-    document.getElementById('course-name').innerText = course;
-    document.getElementById('student-id').innerText = studentId;
-    document.getElementById('rating').innerText = rating + " / 5";
-    document.getElementById('comments').innerText = comments;
-    document.getElementById('feedback-date').innerText = formatDate(date);
+    const feedbackId = urlParams.get('id');
     
-    // Display star rating
-    displayStars(rating);
-    
-    // Enhanced Sentiment Analysis
-    analyzeSentiment(comments);
-    
-    // Extract key points (new feature)
-    extractKeyPoints(comments);
-    
-    // Suggest action items based on feedback (new feature)
-    suggestActionItems(comments, rating);
-    
-    // Update average metrics (new feature)
-    updateAverageMetrics(course);
-    
-    // Initialize the course search feature (new feature)
+    if (feedbackId) {
+        // Fetch feedback details from API
+        fetchFeedbackDetails(feedbackId);
+    } else {
+        // Display an error message if no feedback ID is provided
+        document.getElementById('comments').innerText = "No feedback ID provided. Please return to the dashboard and select a feedback item.";
+    }
+
+    // Initialize UI interactions
     initializeCourseSearch();
-    
-    // Initialize the theme toggle functionality
     initializeThemeToggle();
-    
-    // Initialize action buttons
     initializeActionButtons();
+}
+
+// Function to fetch feedback details from the API
+async function fetchFeedbackDetails(feedbackId) {
+    try {
+        // Fetch feedback details from API
+        const response = await fetch(`/feedback/api/individual/${feedbackId}`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch feedback details');
+        }
+        
+        const data = await response.json();
+        
+        // Extract feedback and course data
+        const feedback = data.feedback;
+        const course = data.course;
+        
+        // Populate the page with feedback details
+        document.getElementById('course-name').innerText = course.courseName || 'Not Specified';
+        document.getElementById('student-id').innerText = feedback.studentId || 'Anonymous';
+        document.getElementById('rating').innerText = feedback.rating + " / 5";
+        document.getElementById('comments').innerText = feedback.comments || 'No comments provided';
+        document.getElementById('feedback-date').innerText = formatDate(feedback.submissionDate);
+        
+        // Display star rating
+        displayStars(feedback.rating);
+        
+        // Enhanced Sentiment Analysis
+        analyzeSentiment(feedback.comments);
+        
+        // Extract key points
+        extractKeyPoints(feedback.comments);
+        
+        // Suggest action items based on feedback
+        suggestActionItems(feedback.comments, feedback.rating);
+        
+        // Fetch and update faculty stats
+        fetchFacultyStats(feedback.facultyId);
+        
+        // Fetch similar feedback
+        fetchSimilarFeedback(feedbackId, feedback.courseId);
+        
+    } catch (error) {
+        console.error('Error fetching feedback details:', error);
+        document.getElementById('comments').innerText = "Error loading feedback. Please try again later.";
+    }
+}
+
+// Function to fetch faculty statistics
+async function fetchFacultyStats(facultyId) {
+    if (!facultyId) return;
+    
+    try {
+        // Fetch faculty stats from API
+        const response = await fetch(`/feedback/api/faculty/${facultyId}/stats`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch faculty statistics');
+        }
+        
+        const stats = await response.json();
+        
+        // Update the UI with faculty stats
+        document.getElementById('avg-rating').innerText = stats.averageRating.toFixed(1) + '/5';
+        document.getElementById('total-respondents').innerText = stats.totalFeedback;
+        document.getElementById('last-updated').innerText = new Date().toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        
+    } catch (error) {
+        console.error('Error fetching faculty stats:', error);
+    }
+}
+
+// Function to fetch similar feedback
+async function fetchSimilarFeedback(feedbackId, courseId) {
+    if (!feedbackId || !courseId) return;
+    
+    try {
+        // Fetch similar feedback from API
+        const response = await fetch(`/feedback/api/similar?feedbackId=${feedbackId}&courseId=${courseId}`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch similar feedback');
+        }
+        
+        const similarFeedbacks = await response.json();
+        
+        // Get the container for similar feedback cards
+        const similarFeedbackContainer = document.querySelector('.similar-feedback-cards');
+        similarFeedbackContainer.innerHTML = ''; // Clear existing content
+        
+        // Add similar feedback cards to the container
+        similarFeedbacks.forEach(feedback => {
+            const card = document.createElement('div');
+            card.className = 'similar-card';
+            
+            card.innerHTML = `
+                <p><strong>Anonymous ID:</strong> ${feedback.studentId || 'Anonymous'}</p>
+                <p><strong>Rating:</strong> ${feedback.rating}/5</p>
+                <p class="truncate-text"><strong>Comment:</strong> ${feedback.comments || 'No comments provided'}</p>
+                <button class="view-more-btn" data-id="${feedback.id}">View Details</button>
+            `;
+            
+            similarFeedbackContainer.appendChild(card);
+        });
+        
+        // Add event listeners to the new buttons
+        document.querySelectorAll('.view-more-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const feedbackId = this.getAttribute('data-id');
+                window.location.href = `view-individual-feedback.html?id=${feedbackId}`;
+            });
+        });
+        
+    } catch (error) {
+        console.error('Error fetching similar feedback:', error);
+    }
+}
+
+// Function to fetch course statistics when a course is selected
+async function fetchCourseStats(courseId) {
+    if (!courseId) return;
+    
+    try {
+        // Fetch course stats from API
+        const response = await fetch(`/feedback/api/course/${courseId}/stats`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch course statistics');
+        }
+        
+        const stats = await response.json();
+        
+        // Update the UI with course stats
+        document.getElementById('avg-rating').innerText = stats.averageRating.toFixed(1) + '/5';
+        document.getElementById('total-respondents').innerText = stats.totalFeedback;
+        document.getElementById('last-updated').innerText = new Date().toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        
+    } catch (error) {
+        console.error('Error fetching course stats:', error);
+    }
+}
+
+// Function to fetch faculty courses for the dropdown
+async function fetchFacultyCourses(facultyId) {
+    if (!facultyId) return;
+    
+    try {
+        // Fetch faculty courses from API
+        const response = await fetch(`/feedback/api/faculty/${facultyId}/courses`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch faculty courses');
+        }
+        
+        const courses = await response.json();
+        
+        // Get the course filter dropdown
+        const courseFilter = document.getElementById('course-filter');
+        
+        // Clear existing options (except the first one)
+        while (courseFilter.options.length > 1) {
+            courseFilter.remove(1);
+        }
+        
+        // Add course options to the dropdown
+        courses.forEach(course => {
+            const option = document.createElement('option');
+            option.value = course.id;
+            option.textContent = course.courseName;
+            courseFilter.appendChild(option);
+        });
+        
+    } catch (error) {
+        console.error('Error fetching faculty courses:', error);
+    }
 }
 
 // Function to display star rating visually
@@ -60,6 +224,12 @@ function displayStars(rating) {
 function analyzeSentiment(comments) {
     const sentimentElement = document.getElementById('sentiment');
     const sentimentContainer = document.getElementById('sentiment-container');
+    
+    if (!comments) {
+        sentimentElement.innerText = 'Neutral';
+        sentimentElement.className = 'sentiment neutral';
+        return;
+    }
     
     // Convert to lowercase for case-insensitive matching
     const text = comments.toLowerCase();
@@ -128,6 +298,13 @@ function analyzeSentiment(comments) {
 
 // Function to extract key points from the comments
 function extractKeyPoints(comments) {
+    if (!comments) {
+        document.getElementById('positive-point-1').innerText = 'No specific points identified';
+        document.getElementById('positive-point-2').innerText = 'No specific points identified';
+        document.getElementById('negative-point-1').innerText = 'No specific points identified';
+        return;
+    }
+    
     const text = comments.toLowerCase();
     
     // Predefined categories for key points
@@ -177,26 +354,26 @@ function extractKeyPoints(comments) {
         positivePoints.push(positiveFallbacks[Math.floor(Math.random() * positiveFallbacks.length)]);
     }
     
-    if (negativePoints.length === 0 && parseFloat(document.getElementById('rating').innerText) < 4) {
+    const rating = parseFloat(document.getElementById('rating').innerText);
+    if (negativePoints.length === 0 && rating < 4) {
         const negativeFallbacks = ['Could use improvement', 'Some aspects need attention'];
         negativePoints.push(negativeFallbacks[Math.floor(Math.random() * negativeFallbacks.length)]);
     }
     
     // Display key points
-    if (positivePoints.length > 0) {
-        document.getElementById('positive-point-1').innerText = positivePoints[0];
-        if (positivePoints.length > 1) {
-            document.getElementById('positive-point-2').innerText = positivePoints[1];
-        }
-    }
-    
-    if (negativePoints.length > 0) {
-        document.getElementById('negative-point-1').innerText = negativePoints[0];
-    }
+    document.getElementById('positive-point-1').innerText = positivePoints[0] || 'No specific positive points identified';
+    document.getElementById('positive-point-2').innerText = positivePoints[1] || 'Good overall experience';
+    document.getElementById('negative-point-1').innerText = negativePoints[0] || 'No specific negative points identified';
 }
 
 // Function to suggest action items based on feedback
 function suggestActionItems(comments, rating) {
+    if (!comments) {
+        document.getElementById('action-item-1').innerText = 'Review course structure';
+        document.getElementById('action-item-2').innerText = 'Maintain current quality standards';
+        return;
+    }
+    
     const text = comments.toLowerCase();
     const ratingValue = parseFloat(rating);
     
@@ -263,58 +440,8 @@ function suggestActionItems(comments, rating) {
     }
     
     // Display action items
-    if (improvementActions.length > 0) {
-        document.getElementById('action-item-1').innerText = improvementActions[0];
-    }
-    
-    if (strengthActions.length > 0) {
-        document.getElementById('action-item-2').innerText = strengthActions[0];
-    } else if (improvementActions.length > 1) {
-        document.getElementById('action-item-2').innerText = improvementActions[1];
-    }
-}
-
-// Function to update average metrics
-function updateAverageMetrics(course) {
-    // This would normally fetch data from a backend or API
-    // For demo purposes, we'll use mock data
-    
-    // Mock data for different courses
-    const courseData = {
-        'Intro to Computer Science': {
-            avgRating: 4.2,
-            respondents: 124,
-            lastUpdated: 'March 15, 2025'
-        },
-        'Calculus 101': {
-            avgRating: 3.8,
-            respondents: 87,
-            lastUpdated: 'March 10, 2025'
-        },
-        'Data Structures': {
-            avgRating: 4.5,
-            respondents: 65,
-            lastUpdated: 'March 18, 2025'
-        },
-        'Psychology 101': {
-            avgRating: 4.1,
-            respondents: 142,
-            lastUpdated: 'March 12, 2025'
-        },
-        'Not Specified': {
-            avgRating: 4.0,
-            respondents: 100,
-            lastUpdated: 'March 15, 2025'
-        }
-    };
-    
-    // Get the data for the current course
-    const data = courseData[course] || courseData['Not Specified'];
-    
-    // Update the UI
-    document.getElementById('avg-rating').innerText = data.avgRating + '/5';
-    document.getElementById('total-respondents').innerText = data.respondents;
-    document.getElementById('last-updated').innerText = data.lastUpdated;
+    document.getElementById('action-item-1').innerText = improvementActions[0] || 'Review course structure';
+    document.getElementById('action-item-2').innerText = strengthActions[0] || improvementActions[1] || 'Maintain current quality standards';
 }
 
 // Function to initialize course search and filter
@@ -328,8 +455,8 @@ function initializeCourseSearch() {
         const searchTerm = searchInput.value.trim().toLowerCase();
         if (searchTerm) {
             // In a real application, this would search the database or API
-            // For demo purposes, we'll just alert
             alert(`Searching for: ${searchTerm}`);
+            // You could implement a dynamic search by calling an API endpoint here
         }
     });
     
@@ -342,57 +469,74 @@ function initializeCourseSearch() {
     
     // Course filter functionality
     filterSelect.addEventListener('change', () => {
-        const selectedCourse = filterSelect.value;
-        if (selectedCourse) {
+        const selectedCourseId = filterSelect.value;
+        if (selectedCourseId) {
             // Update the metrics for the selected course
-            updateAverageMetrics(selectedCourse);
-            
-            // In a real application, this would load feedback for that course
-            // For demo purposes, we'll just update the course name
-            document.getElementById('course-name').innerText = selectedCourse;
+            fetchCourseStats(selectedCourseId);
         }
     });
+    
+    // Get faculty ID from URL or another source
+    const urlParams = new URLSearchParams(window.location.search);
+    const feedbackId = urlParams.get('id');
+    
+    // Fetch feedback to get faculty ID, then fetch courses
+    if (feedbackId) {
+        fetch(`/feedback/api/individual/${feedbackId}`)
+            .then(response => response.json())
+            .then(data => {
+                const facultyId = data.feedback.facultyId;
+                if (facultyId) {
+                    fetchFacultyCourses(facultyId);
+                }
+            })
+            .catch(error => console.error('Error fetching faculty ID:', error));
+    }
 }
 
 // Function to initialize theme toggle
 function initializeThemeToggle() {
     const themeToggleBtn = document.getElementById('theme-toggle');
     
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        
-        // Save preference to localStorage
-        if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            localStorage.setItem('darkMode', 'disabled');
-        }
-    });
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            // Save preference to localStorage
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    }
 }
 
 // Function to initialize action buttons
 function initializeActionButtons() {
     const printBtn = document.getElementById('print-feedback');
     const downloadBtn = document.getElementById('download-report');
-    const viewDetailsBtns = document.querySelectorAll('.view-more-btn');
     
     // Print functionality
-    printBtn.addEventListener('click', () => {
-        window.print();
-    });
+    if (printBtn) {
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
     
     // Download report functionality
-    downloadBtn.addEventListener('click', () => {
-        // Get current feedback data
-        const course = document.getElementById('course-name').innerText;
-        const studentId = document.getElementById('student-id').innerText;
-        const rating = document.getElementById('rating').innerText;
-        const comments = document.getElementById('comments').innerText;
-        const date = document.getElementById('feedback-date').innerText;
-        const sentiment = document.getElementById('sentiment').innerText;
-        
-        // Create a text version of the report
-        const reportContent = `
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            // Get current feedback data
+            const course = document.getElementById('course-name').innerText;
+            const studentId = document.getElementById('student-id').innerText;
+            const rating = document.getElementById('rating').innerText;
+            const comments = document.getElementById('comments').innerText;
+            const date = document.getElementById('feedback-date').innerText;
+            const sentiment = document.getElementById('sentiment').innerText;
+            
+            // Create a text version of the report
+            const reportContent = `
 Course Feedback Report
 =====================
 Course: ${course}
@@ -414,31 +558,20 @@ Action Items:
 - ${document.getElementById('action-item-2').innerText}
 
 Generated on: ${new Date().toLocaleString()}
-        `;
-        
-        // Create a download link
-        const blob = new Blob([reportContent], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `feedback-report-${studentId}.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    });
-    
-    // View more details buttons for similar feedback
-    viewDetailsBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const card = btn.closest('.similar-card');
-            const studentId = card.querySelector('p:first-child strong').nextSibling.textContent.trim();
+            `;
             
-            // In a real application, this would navigate to that feedback's details
-            // For demo purposes, we'll just alert
-            alert(`Viewing details for student: ${studentId}`);
+            // Create a download link
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `feedback-report-${studentId}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         });
-    });
+    }
 }
 
 // Function to go back to dashboard
@@ -475,15 +608,5 @@ function capitalizeFirstLetter(string) {
 
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    getFeedbackDetails();
-    
-    // Add event listeners for similar card buttons
-    const viewMoreBtns = document.querySelectorAll('.view-more-btn');
-    viewMoreBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const studentId = this.parentElement.querySelector('p:first-child').innerText.split(':')[1].trim();
-            // Navigate to the feedback page for this student
-            window.location.href = `view-individual-feedback.html?id=${studentId}&course=Intro to Computer Science&rating=4.2&comments=This course was well structured but could use more practical examples.&date=2025-03-10`;
-        });
-    });
+    loadFeedbackDetails();
 });

@@ -24,79 +24,65 @@
     </div>
 
     <script>
-    document.getElementById("login-form").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-        const response = await fetch("http://localhost:8080/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-        console.log("Login Response:", data);
-
-        if (response.ok) {
-            localStorage.setItem("userEmail", email);
-            localStorage.setItem("userRole", data.dtype);
-            
-            if (data.dtype === "FACULTY") {
-                // Triple-layer storage commit
-                localStorage.setItem("facultyId", data.facultyId);
-                sessionStorage.setItem("facultyId", data.facultyId);
-                
-                // Force storage commit
-                const checkCommit = setInterval(() => {
-                    if (localStorage.getItem("facultyId") === data.facultyId && 
-                        sessionStorage.getItem("facultyId") === data.facultyId) {
-                        clearInterval(checkCommit);
-                        window.location.href = `facultydash.html?facultyId=${data.facultyId}`;
+        document.getElementById("login-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+        
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+        
+            try {
+                const response = await fetch("http://localhost:8080/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+        
+                const data = await response.json();
+                console.log("Login Response:", data);
+        
+                if (response.ok) {
+                    localStorage.setItem("userEmail", email);
+                    localStorage.setItem("userRole", data.dtype);
+                    localStorage.setItem("userId", data.userId);
+        
+                    if (data.dtype === "FACULTY") {
+                        window.location.href = `facultydash.html?userId=${data.userId}`;
+                    } else if (data.dtype === "STUDENT") {
+                        window.location.href = "studentdash.html";
+                    } else if (data.dtype === "ADMIN") {
+                        window.location.href = "AdminDashboard.html";
+                    } else {
+                        alert("Unknown user role. Please contact support.");
                     }
-                }, 10);
-                
-            } else if (data.dtype === "STUDENT") {
-                localStorage.setItem("studentId", data.studentId);
-                window.location.href = "studentdash.html";
-            } else if (data.dtype === "ADMIN") {
-                localStorage.setItem("adminId", data.adminId);
-                window.location.href = "AdminDashboard.html";
-            } else {
-                alert("Unknown user role. Please contact support.");
+                } else {
+                    alert(data.error || "Login failed!");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Something went wrong. Please try again later.");
             }
-        } else {
-            alert(data.error || "Login failed!");
+        });
+        
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            const showPasswordBtn = document.querySelector(".show-password");
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                showPasswordBtn.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                showPasswordBtn.textContent = "Show";
+            }
         }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Something went wrong. Please try again later.");
-    }
-});
-
-function togglePassword() {
-    const passwordField = document.getElementById("password");
-    const showPasswordBtn = document.querySelector(".show-password");
-    
-    if (passwordField.type === "password") {
-        passwordField.type = "text";
-        showPasswordBtn.textContent = "Hide";
-    } else {
-        passwordField.type = "password";
-        showPasswordBtn.textContent = "Show";
-    }
-}
-
-console.log("Storage Debug:", {
-  origin: window.location.origin,
-  path: window.location.pathname,
-  facultyId: localStorage.getItem("facultyId"),
-  allStorage: { ...localStorage }
-});
-
-    </script>
+        
+        console.log("Storage Debug:", {
+            origin: window.location.origin,
+            path: window.location.pathname,
+            userId: localStorage.getItem("userId"),
+            allStorage: { ...localStorage }
+        });
+        </script>
 
 </body>
 </html>

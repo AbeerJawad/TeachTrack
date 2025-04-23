@@ -70,11 +70,19 @@
             localStorage.setItem("userEmail", jsonData.email);
             localStorage.setItem("userRole", jsonData.dtype);
             localStorage.setItem("userName", jsonData.fullName);
+            localStorage.setItem("userId", data.userId);
             
             alert("Signup successful!");
             
-            // Redirect based on user role
-            window.location.href = jsonData.dtype.toLowerCase() + "dash.html";
+            if (data.dtype === "FACULTY") {
+                window.location.href = `facultydash.html?userId=${data.userId}`;
+            } else if (data.dtype === "STUDENT") {
+                window.location.href = `studentdash.html?userId=${data.userId}`;
+            } else if (data.dtype === "ADMIN") {
+                window.location.href = `AdminDashboard.html?userId=${data.userId}`;
+            } else {
+                alert("Unknown user role. Please contact support.");
+            }
         } else {
             alert(data.error || "Signup failed. Please try again.");
         }

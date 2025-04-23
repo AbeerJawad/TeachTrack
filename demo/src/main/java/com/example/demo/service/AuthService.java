@@ -32,6 +32,7 @@ public class AuthService {
             responseData.put("dtype", user.getDtype());
             responseData.put("email", user.getEmail());
             responseData.put("fullName", user.getFullName());
+            responseData.put("userId", user.getId().toString());
             
             // Add role-specific IDs if available
             if (user instanceof Student) {
