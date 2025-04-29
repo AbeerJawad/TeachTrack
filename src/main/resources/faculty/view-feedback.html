@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Feedback</title>
+    <link rel="stylesheet" href="view-feedback.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script defer src="view-feedback.js"></script>
+</head>
+<body>
+    <!-- Top Panel -->
+    <header class="top-panel">
+        <div class="dashboard-title">
+            <h1><i class="fas fa-comment-dots"></i> View Feedback</h1>
+        </div>
+        <div class="top-right">
+            <a href="index.html" class="back-dashboard">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </header>
+    
+    <!-- Animated background elements -->
+    <div class="animated-bg">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+        <div class="floating-shape shape4"></div>
+    </div>
+    
+    <!-- Feedback Details Section -->
+    <div class="feedback-container">
+        <div class="feedback-header">
+            <h2>Feedback Details</h2>
+            <div class="decoration-line"></div>
+        </div>
+        
+        <div class="feedback-card">
+            <div class="feedback-info">
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-book"></i> Course:</div>
+                    <div class="info-value" id="course-name">Loading...</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-chalkboard-teacher"></i> Instructor:</div>
+                    <div class="info-value" id="instructor">Loading...</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-user-secret"></i> Anonymous ID:</div>
+                    <div class="info-value" id="student-id">Loading...</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-star"></i> Rating:</div>
+                    <div class="info-value" id="rating">Loading...</div>
+                </div>
+                
+                <div class="info-row comments-row">
+                    <div class="info-label"><i class="fas fa-comment"></i> Comments:</div>
+                    <div class="info-value" id="comments">Loading...</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-calendar-alt"></i> Feedback Date:</div>
+                    <div class="info-value" id="feedback-date">Loading...</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label"><i class="fas fa-heart"></i> Sentiment Analysis:</div>
+                    <div class="info-value" id="sentiment">Loading...</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="feedback-analytics.html" class="analytics-btn">
+                <i class="fas fa-chart-bar"></i> View Analytics
+            </a>
+        </div>
+        
+        <div class="feedback-stats">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-comments"></i></div>
+                <div class="stat-value" id="total-feedback">-</div>
+                <div class="stat-label">Total Feedback</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                <div class="stat-value" id="avg-rating">-</div>
+                <div class="stat-label">Avg. Rating</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-thumbs-up"></i></div>
+                <div class="stat-value" id="positive-percent">-</div>
+                <div class="stat-label">Positive</div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
