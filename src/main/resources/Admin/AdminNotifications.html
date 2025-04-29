@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Notifications</title>
+    <link rel="stylesheet" href="../css/adminnotifications.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <span class="title">Notifications</span>
+        </div>
+        <div class="nav-right">
+            <a href="admindashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="notifications-header">
+            <h1>Recent Notifications</h1>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="unread">Unread</button>
+            <button class="filter-btn" data-filter="feedback">Feedback</button>
+            <button class="filter-btn" data-filter="system">System</button>
+            <div class="spacer"></div>
+            <button class="mark-read-btn">Mark all as read</button>
+        </div>
+
+        <!-- Notifications List -->
+        <div class="notifications-container">
+            <!-- Notification Item 1 -->
+            <div class="notification-item unread feedback">
+                <div class="notification-icon">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>New feedback received for CS101</h3>
+                    <p>From: Student ID 10293 • Course: CS101 • Topic: Week 3 Material</p>
+                </div>
+                <div class="notification-time">
+                    <span>5 mins ago</span>
+                </div>
+            </div>
+
+            <!-- Notification Item 2 -->
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>Response sent successfully to a student</h3>
+                    <p>Student ID: 39485 • Course: CS101 • Response ID: 12345</p>
+                </div>
+                <div class="notification-time">
+                    <span>1 hour ago</span>
+                </div>
+            </div>
+
+            <!-- Notification Item 3 -->
+            <div class="notification-item feedback">
+                <div class="notification-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>Weekly feedback summary is available</h3>
+                    <p>Period: Mar 14 - Mar 20, 2025 • Courses: All</p>
+                </div>
+                <div class="notification-time">
+                    <span>Yesterday</span>
+                </div>
+            </div>
+
+            <!-- Notification Item 4 -->
+            <div class="notification-item feedback">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>Reminder: Review pending feedback for CS202</h3>
+                    <p>5 feedback items awaiting your response</p>
+                </div>
+                <div class="notification-time">
+                    <span>2 days ago</span>
+                </div>
+            </div>
+
+            <!-- Notification Item 5 -->
+            <div class="notification-item system">
+                <div class="notification-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>System update scheduled this weekend</h3>
+                    <p>Maintenance window: Mar 22, 2025, 2:00 AM - 4:00 AM EST</p>
+                </div>
+                <div class="notification-time">
+                    <span>3 days ago</span>
+                </div>
+            </div>
+
+            <!-- Notification Item 6 -->
+            <div class="notification-item system">
+                <div class="notification-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>New faculty member added to system</h3>
+                    <p>Dr. Emily Chen has been added to the Computer Science department</p>
+                </div>
+                <div class="notification-time">
+                    <span>4 days ago</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/adminnotifications.js"></script>
+</body>
+</html>

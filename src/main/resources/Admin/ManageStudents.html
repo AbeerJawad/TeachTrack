@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Students</title>
+    <link rel="stylesheet" href="../css/managestudents.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <span class="title">Manage Students</span>
+        </div>
+        <div class="nav-right">
+            <a href="admindashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <div class="header-content">
+                <h1>Student Management</h1>
+                <p>Add, edit and manage student information</p>
+            </div>
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-title">Total Students</span>
+                        <span class="summary-value">500</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-title">Active Students</span>
+                        <span class="summary-value">450</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-title">Graduating</span>
+                        <span class="summary-value">50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="search-container">
+                <input type="text" placeholder="Search students by name or course" class="search-input">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            <div class="filter-container">
+                <select class="filter-select">
+                    <option value="">All Courses</option>
+                    <option value="CS101">CS101</option>
+                    <option value="CS102">CS102</option>
+                    <option value="CS103">CS103</option>
+                </select>
+                <button id="addStudentBtn" class="add-btn">
+                    <i class="fas fa-plus"></i> Add Student
+                </button>
+            </div>
+        </div>
+
+        <!-- Students Table -->
+        <div class="table-container">
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="student-name">
+                            <div class="name-with-avatar">
+                                <div class="avatar">R</div>
+                                <span>Rohaan</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="course-badge">CS101</span>
+                        </td>
+                        <td>rohaan@example.com</td>
+                        <td>
+                            <span class="status-badge active">Active</span>
+                        </td>
+                        <td class="action-cell">
+                            <button class="action-btn edit-btn">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="student-name">
+                            <div class="name-with-avatar">
+                                <div class="avatar">A</div>
+                                <span>Ayesha</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="course-badge">CS102</span>
+                        </td>
+                        <td>ayesha@example.com</td>
+                        <td>
+                            <span class="status-badge active">Active</span>
+                        </td>
+                        <td class="action-cell">
+                            <button class="action-btn edit-btn">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="student-name">
+                            <div class="name-with-avatar">
+                                <div class="avatar">A</div>
+                                <span>Ali</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="course-badge">CS103</span>
+                        </td>
+                        <td>ali@example.com</td>
+                        <td>
+                            <span class="status-badge active">Active</span>
+                        </td>
+                        <td class="action-cell">
+                            <button class="action-btn edit-btn">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="student-name">
+                            <div class="name-with-avatar">
+                                <div class="avatar">S</div>
+                                <span>Sara</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="course-badge">CS101</span>
+                        </td>
+                        <td>sara@example.com</td>
+                        <td>
+                            <span class="status-badge inactive">On Leave</span>
+                        </td>
+                        <td class="action-cell">
+                            <button class="action-btn edit-btn">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="student-name">
+                            <div class="name-with-avatar">
+                                <div class="avatar">H</div>
+                                <span>Hassan</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="course-badge">CS102</span>
+                        </td>
+                        <td>hassan@example.com</td>
+                        <td>
+                            <span class="status-badge active">Active</span>
+                        </td>
+                        <td class="action-cell">
+                            <button class="action-btn edit-btn">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <span class="page-info">Showing 1-5 of 500 students</span>
+            <div class="page-controls">
+                <button class="page-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="page-number active">1</span>
+                <span class="page-number">2</span>
+                <span class="page-number">3</span>
+                <span class="page-ellipsis">...</span>
+                <span class="page-number">50</span>
+                <button class="page-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Student</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addStudentForm">
+                    <div class="form-group">
+                        <label for="studentName">Full Name</label>
+                        <input type="text" id="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentEmail">Email</label>
+                        <input type="email" id="studentEmail" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentCourse">Course</label>
+                            <select id="studentCourse" required>
+                                <option value="">Select Course</option>
+                                <option value="CS101">CS101</option>
+                                <option value="CS102">CS102</option>
+                                <option value="CS103">CS103</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentStatus">Status</label>
+                            <select id="studentStatus" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="onleave">On Leave</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentAddress">Address</label>
+                        <textarea id="studentAddress" rows="3"></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="submit-btn">Add Student</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/managestudents.js"></script>
+</body>
+</html>

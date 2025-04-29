@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <link rel="stylesheet" href="../css/AdminProfile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span class="title">
+                <i class="fas fa-user-shield"></i> Profile
+            </span>
+        </div>
+        <div class="nav-right">
+            <a href="admindashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="profile-container">
+            <!-- Profile Info Card -->
+            <div class="profile-card">
+                <div class="profile-header"></div>
+                <div class="profile-image">
+                    <img src="../images/profile-picture.png" alt="Profile Picture">
+                    <button class="edit-photo-btn">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                </div>
+                <h2 class="admin-name">Admin Name</h2>
+                <p class="admin-role">System Administrator</p>
+                <p class="admin-email">admin@example.com</p>
+                
+                <div class="status-badge">Active</div>
+                
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-number">24</span>
+                        <span class="stat-label">Active Users</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Personal Info Section -->
+            <div class="info-card">
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="personal">Personal Info</button>
+                    <button class="tab-btn" data-tab="activity">Activity</button>
+                </div>
+
+                <!-- Personal Info Tab Content -->
+                <div class="tab-content active" id="personal-tab">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="full-name">Full Name</label>
+                            <input type="text" id="full-name" value="Admin Name" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" value="admin@example.com" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" id="phone" value="+1 234 567 8901" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select id="role" disabled>
+                                <option selected>System Administrator</option>
+                                <option>Tech Support</option>
+                                <option>Super Admin</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" readonly>Experienced system administrator with expertise in managing projects and ensuring uptime.</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" placeholder="Enter new password" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" placeholder="Confirm new password" readonly>
+                        </div>
+                    </div>
+
+                    <div class="skill-section">
+                        <h3>Skills & Expertise</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">System Administration</span>
+                            <span class="skill-tag">Network Security</span>
+                            <span class="skill-tag">Database Management</span>
+                            <span class="skill-tag">Cloud Services</span>
+                            <span class="skill-tag">IT Infrastructure</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="edit-profile-btn">Edit Profile</button>
+                    </div>
+                </div>
+
+                <!-- Activity Tab Content -->
+                <div class="tab-content" id="activity-tab">
+                    <div class="activity-timeline">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>Added new system users</h4>
+                                <p class="activity-date">March 25, 2025</p>
+                                <p class="activity-description">Added 5 new faculty members to the system.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>System update deployed</h4>
+                                <p class="activity-date">March 15, 2025</p>
+                                <p class="activity-description">Deployed version 2.4 with improvements to user interface.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>Security audit completed</h4>
+                                <p class="activity-date">February 28, 2025</p>
+                                <p class="activity-description">Completed quarterly security audit with no critical findings.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>Database optimization</h4>
+                                <p class="activity-date">February 10, 2025</p>
+                                <p class="activity-description">Optimized database queries resulting in 30% faster response times.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/AdminProfile.js"></script>
+</body>
+</html>

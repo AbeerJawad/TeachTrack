@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Analytics & Reports</title>
+    <link rel="stylesheet" href="../css/systemanalytics.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <span class="title">System Analytics & Reports</span>
+        </div>
+        <div class="nav-right">
+            <a href="admindashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1>Analytics Dashboard</h1>
+            <p>Insights based on system database</p>
+            
+            <div class="time-filter">
+                <span class="time-label">Time Period:</span>
+                <div class="time-buttons">
+                    <button class="time-btn">Last 7 Days</button>
+                    <button class="time-btn active">Last 30 Days</button>
+                    <button class="time-btn">Last 90 Days</button>
+                    <button class="time-btn">All Time</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-data">
+                    <span class="stat-number">500</span>
+                    <span class="stat-label">Total Students</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-data">
+                    <span class="stat-number">200</span>
+                    <span class="stat-label">Total Faculty</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-data">
+                    <span class="stat-number">50</span>
+                    <span class="stat-label">Active Courses</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
+                <div class="stat-data">
+                    <span class="stat-number">10</span>
+                    <span class="stat-label">Pending Feedback</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-grid">
+            <!-- Course Evaluations Chart -->
+            <div class="chart-card large">
+                <div class="chart-header">
+                    <h2>Most Evaluated Courses</h2>
+                    <div class="chart-actions">
+                        <button class="chart-btn">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="courseEvaluationsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Course Distribution Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2>Courses by Department</h2>
+                    <div class="chart-actions">
+                        <button class="chart-btn">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="departmentDistributionChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Student Enrollment Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2>Student Enrollment</h2>
+                    <div class="chart-actions">
+                        <button class="chart-btn">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="enrollmentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table Section -->
+        <div class="data-section">
+            <div class="section-header">
+                <h2>Course Analytics</h2>
+                <button class="view-all-btn">View All</button>
+            </div>
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Name</th>
+                            <th>Department</th>
+                            <th>Students</th>
+                            <th>Evaluations</th>
+                            <th>Avg. Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CS101</td>
+                            <td>Introduction to Programming</td>
+                            <td>Computer Science</td>
+                            <td>120</td>
+                            <td>80</td>
+                            <td>4.5/5.0</td>
+                        </tr>
+                        <tr>
+                            <td>CS102</td>
+                            <td>Data Structures</td>
+                            <td>Computer Science</td>
+                            <td>110</td>
+                            <td>70</td>
+                            <td>4.3/5.0</td>
+                        </tr>
+                        <tr>
+                            <td>CS103</td>
+                            <td>Algorithms</td>
+                            <td>Computer Science</td>
+                            <td>90</td>
+                            <td>65</td>
+                            <td>4.2/5.0</td>
+                        </tr>
+                        <tr>
+                            <td>MA201</td>
+                            <td>Calculus II</td>
+                            <td>Mathematics</td>
+                            <td>85</td>
+                            <td>50</td>
+                            <td>4.0/5.0</td>
+                        </tr>
+                        <tr>
+                            <td>EE101</td>
+                            <td>Introduction to Electronics</td>
+                            <td>Electrical Engineering</td>
+                            <td>75</td>
+                            <td>40</td>
+                            <td>3.8/5.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Export Report Section -->
+        <div class="export-section">
+            <div class="export-card">
+                <i class="fas fa-file-export"></i>
+                <h3>Export Analytics Report</h3>
+                <p>Download system analytics data in your preferred format</p>
+                <div class="export-buttons">
+                    <button class="export-btn pdf">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                    <button class="export-btn excel">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="export-btn csv">
+                        <i class="fas fa-file-csv"></i> CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/systemanalytics.js"></script>
+</body>
+</html>

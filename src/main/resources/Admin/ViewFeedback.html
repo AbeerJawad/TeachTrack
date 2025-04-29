@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Feedback</title>
+    <link rel="stylesheet" href="../css/ViewFeedback.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="nav-left">
+        <span>Manage Feedback</span>
+    </div>
+    <div class="nav-right">
+        <a href="AdminDashboard.html">
+            <i class="back-arrow"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+    <h1>Feedback Management</h1>
+
+    <!-- Search Bar -->
+    <div class="filter-container">
+        <input type="text" id="searchInput" placeholder="Search by Faculty Name">
+        <button id="searchButton">Search</button>
+    </div>
+
+    <!-- Feedback Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Faculty Name</th>
+                    <th>Feedback</th>
+                    <th>Submitted Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Dr. Ahmed</td>
+                    <td>Excellent teaching methods.</td>
+                    <td>2025-04-26</td>
+                    <td>
+                        <button class="action-button delete-button">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Dr. Sara</td>
+                    <td>Could improve on explaining complex topics.</td>
+                    <td>2025-04-25</td>
+                    <td>
+                        <button class="action-button delete-button">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="../js/ViewFeedback.js"></script>
+</body>
+</html>
