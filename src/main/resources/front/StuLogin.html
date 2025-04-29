@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachTrack - Student Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body class="student-page">
+    <div class="container">
+        <div class="login-wrapper">
+            <div class="login-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="20" fill="#22C3E6"/>
+                            <path d="M20 12C17.7909 12 16 13.7909 16 16V24C16 26.2091 17.7909 28 20 28C22.2091 28 24 26.2091 24 24V16C24 13.7909 22.2091 12 20 12Z" fill="white"/>
+                            <path d="M28 20H24V24C24 26.2091 22.2091 28 20 28C17.7909 28 16 26.2091 16 24V20H12V24C12 28.4183 15.5817 32 20 32C24.4183 32 28 28.4183 28 24V20Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h1 class="logo-text">TeachTrack</h1>
+                </div>
+                
+                <h2 class="login-title">Student Login</h2>
+                <p class="login-subtitle">Submit feedback and view your course history</p>
+                
+                <form id="studentLoginForm" class="login-form">
+                    <input type="hidden" id="roleField" name="role" value="student">
+                    
+                    <div class="form-group">
+                        <label for="studentUsername">Username</label>
+                        <div class="input-container">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="#6B8CAE" stroke-width="1.5"/>
+                                <path d="M20 19C20 19.5523 19.5523 20 19 20H5C4.44772 20 4 19.5523 4 19C4 15.134 7.13401 12 11 12H13C16.866 12 20 15.134 20 19Z" stroke="#6B8CAE" stroke-width="1.5"/>
+                            </svg>
+                            <input type="text" id="studentUsername" name="username" required placeholder="Enter your username">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentPassword">Password</label>
+                        <div class="input-container">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z" stroke="#6B8CAE" stroke-width="1.5"/>
+                                <path d="M7 11V7C7 4.23858 9.23858 2 12 2C14.7614 2 17 4.23858 17 7V11" stroke="#6B8CAE" stroke-width="1.5"/>
+                                <circle cx="12" cy="16" r="2" stroke="#6B8CAE" stroke-width="1.5"/>
+                            </svg>
+                            <input type="password" id="studentPassword" name="password" required placeholder="Enter your password">
+                            <svg class="toggle-password" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#6B8CAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="12" r="3" stroke="#6B8CAE" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentRegNumber">Registration Number</label>
+                        <div class="input-container">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke="#6B8CAE" stroke-width="1.5"/>
+                                <path d="M3 8H21" stroke="#6B8CAE" stroke-width="1.5"/>
+                                <path d="M8 3V21" stroke="#6B8CAE" stroke-width="1.5"/>
+                            </svg>
+                            <input type="text" id="studentRegNumber" name="registration_number" required placeholder="Enter your registration number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="login-button">
+                        Login
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="form-footer">
+                        <p>Not student? <a href="../faculty/FacLogin.html">Login as faculty</a></p>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="login-image">
+                <!--   <img src="/api/placeholder/400/400" alt="Student dashboard illustration"> -->
+                <div class="decoration-circle"></div>
+                <div class="decoration-circle small"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/login.js"></script>
+</body>
+</html>
