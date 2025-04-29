@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Notifications - TeachTrack</title>
+    <link rel="stylesheet" href="css/StuNotifications.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Panel -->
+    <header class="top-panel">
+        <div class="dashboard-title">
+            <button class="menu-btn" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <i class="fas fa-bell dashboard-icon"></i>
+            Notifications
+        </div>
+        <div class="top-right">
+            <li><a href="StuProfile.html"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="StuSettings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            <li><a href="../Startpage.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-user-graduate"></i> Student Panel</h2>
+        </div>
+        <ul>
+            <li><a href="StuDashboard.html"><i class="fas fa-graduation-cap"></i> Dashboard</a></li>
+            <li><a href="Feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
+            <li><a href="StuFacultyView.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+            <li class="active"><a href="StuNotifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="AcademicCalendar.html"><i class="fas fa-calendar"></i> Academic Calendar</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><i class="fas fa-copyright"></i> TeachTrack 2025</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-section">
+        <div class="content-area">
+            <!-- Page Title -->
+            <div class="page-header">
+                <h1><i class="fas fa-bell"></i> Your Notifications</h1>
+                <p>Stay updated with your feedback deadlines and course announcements</p>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="controls-container">
+                <div class="controls-section">
+                    <div class="search-filter">
+                        <div class="search-container">
+                            <input type="text" placeholder="Search notifications..." id="searchInput">
+                            <button class="search-btn" id="searchBtn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls-section">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="feedback">Feedback</button>
+                        <button class="filter-btn" data-filter="deadline">Deadlines</button>
+                        <button class="filter-btn" data-filter="announcement">Announcements</button>
+                    </div>
+                </div>
+                <div class="controls-section">
+                    <button class="action-btn mark-all-read-btn" id="markAllReadBtn">
+                        <i class="fas fa-check-double"></i> Mark All as Read
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notifications Container -->
+            <div class="notifications-container">
+                <div class="notifications-header">
+                    <div class="header-title">
+                        <h3>Recent Notifications</h3>
+                    </div>
+                    <div class="header-actions">
+                        <select id="sortSelect" class="sort-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="unread">Unread First</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Notifications List -->
+                <div class="notifications-list" id="notificationsList">
+                    <!-- Notifications will be loaded dynamically -->
+                    <div class="loading-spinner">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        <span>Loading notifications...</span>
+                    </div>
+                </div>
+
+                <!-- Empty State (Hidden by default) -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fas fa-bell-slash"></i>
+                    <h4>No Notifications</h4>
+                    <p>You're all caught up! There are no notifications to display.</p>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <button class="page-btn" id="prevPageBtn" disabled><i class="fas fa-chevron-left"></i></button>
+                    <span class="page-number" id="currentPage">1</span>
+                    <button class="page-btn" id="nextPageBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Detail Modal -->
+    <div class="modal" id="notificationDetailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Notification Details</h3>
+                <button class="close-btn" id="closeModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be dynamically inserted -->
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-btn" id="dismissBtn">Dismiss</button>
+                <button class="primary-btn" id="actionBtn">Take Action</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="js/StuNotifications.js"></script>
+</body>
+</html>

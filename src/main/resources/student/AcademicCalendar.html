@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Calendar - TeachTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/AcademicCalendar.css">
+    <script defer src="js/AcademicCalendar.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (localStorage.getItem("darkMode") === "enabled") {
+                document.body.classList.add("dark-mode");
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+                <span>Student Panel</span>
+            </div>
+        </div>
+        <div class="sidebar-nav">
+            <a href="StuDashboard.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+            <a href="stuFeedback.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Feedback</span>
+            </a>
+            <a href="StuFacultyView.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Faculty</span>
+            </a>
+            <a href="StuNotifications.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span>Notifications</span>
+            </a>
+            <a href="AcademicCalendar.html" class="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Academic Calendar</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-left">
+            <button class="menu-toggle" id="sidebarToggle" onclick="toggleSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <h1>Academic Calendar</h1>
+        </div>
+        <div class="header-right">
+            <a href="StuDashboard.html" class="back-button">Back to Dashboard</a>
+            <div class="view-options">
+                <button class="view-button active" data-view="month">Month</button>
+                <button class="view-button" data-view="week">Week</button>
+                <button class="view-button" data-view="list">List</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="page-content" id="pageContent">
+        <div class="calendar-container">
+            <!-- Calendar Header -->
+            <div class="calendar-header">
+                <div class="calendar-navigation">
+                    <button class="nav-button" id="prevBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <h2 id="currentMonthYear">April 2025</h2>
+                    <button class="nav-button" id="nextBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <button class="today-button" id="todayBtn">Today</button>
+            </div>
+
+            <!-- Calendar Filters -->
+            <div class="calendar-filters">
+                <div class="filter-container">
+                    <label class="filter-label">
+                        <input type="checkbox" class="filter-checkbox" data-filter="academic" checked>
+                        <span class="checkbox-custom academic"></span>
+                        Academic
+                    </label>
+                    <label class="filter-label">
+                        <input type="checkbox" class="filter-checkbox" data-filter="exam" checked>
+                        <span class="checkbox-custom exam"></span>
+                        Exams
+                    </label>
+                    <label class="filter-label">
+                        <input type="checkbox" class="filter-checkbox" data-filter="holiday" checked>
+                        <span class="checkbox-custom holiday"></span>
+                        Holidays
+                    </label>
+                    <label class="filter-label">
+                        <input type="checkbox" class="filter-checkbox" data-filter="event" checked>
+                        <span class="checkbox-custom event"></span>
+                        Events
+                    </label>
+                    <label class="filter-label">
+                        <input type="checkbox" class="filter-checkbox" data-filter="deadline" checked>
+                        <span class="checkbox-custom deadline"></span>
+                        Deadlines
+                    </label>
+                </div>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search events...">
+                    <button class="search-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Month View (Default) -->
+            <div class="calendar-view month-view" id="monthView">
+                <div class="calendar-weekdays">
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                </div>
+                <div class="calendar-days" id="calendarDays">
+                    <!-- Calendar days will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Week View (Hidden by default) -->
+            <div class="calendar-view week-view" id="weekView" style="display: none;">
+                <div class="week-header">
+                    <div class="week-day-header">
+                        <div class="time-column"></div>
+                        <div class="day-column">Sunday<span class="day-number">23</span></div>
+                        <div class="day-column">Monday<span class="day-number">24</span></div>
+                        <div class="day-column">Tuesday<span class="day-number">25</span></div>
+                        <div class="day-column">Wednesday<span class="day-number">26</span></div>
+                        <div class="day-column">Thursday<span class="day-number">27</span></div>
+                        <div class="day-column">Friday<span class="day-number">28</span></div>
+                        <div class="day-column">Saturday<span class="day-number">29</span></div>
+                    </div>
+                </div>
+                <div class="week-body">
+                    <div class="time-slots">
+                        <div class="time-label">8:00 AM</div>
+                        <div class="time-label">9:00 AM</div>
+                        <div class="time-label">10:00 AM</div>
+                        <div class="time-label">11:00 AM</div>
+                        <div class="time-label">12:00 PM</div>
+                        <div class="time-label">1:00 PM</div>
+                        <div class="time-label">2:00 PM</div>
+                        <div class="time-label">3:00 PM</div>
+                        <div class="time-label">4:00 PM</div>
+                        <div class="time-label">5:00 PM</div>
+                    </div>
+                    <div class="week-grid" id="weekGrid">
+                        <!-- Week grid will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- List View (Hidden by default) -->
+            <div class="calendar-view list-view" id="listView" style="display: none;">
+                <div class="list-container">
+                    <div class="list-month">
+                        <h3>April 2025</h3>
+                        <div class="event-list">
+                            <div class="event-item academic">
+                                <div class="event-date">
+                                    <span class="event-day">1</span>
+                                    <span class="event-weekday">Tue</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Spring Semester Begins</h4>
+                                    <p class="event-time">All Day</p>
+                                    <p class="event-description">First day of Spring Semester classes</p>
+                                </div>
+                            </div>
+                            <div class="event-item deadline">
+                                <div class="event-date">
+                                    <span class="event-day">5</span>
+                                    <span class="event-weekday">Sat</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Course Registration Deadline</h4>
+                                    <p class="event-time">11:59 PM</p>
+                                    <p class="event-description">Last day to add/drop courses without penalty</p>
+                                </div>
+                            </div>
+                            <div class="event-item event">
+                                <div class="event-date">
+                                    <span class="event-day">10</span>
+                                    <span class="event-weekday">Thu</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Career Fair</h4>
+                                    <p class="event-time">10:00 AM - 4:00 PM</p>
+                                    <p class="event-description">Annual Spring Career Fair at University Center</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-month">
+                        <h3>May 2025</h3>
+                        <div class="event-list">
+                            <div class="event-item exam">
+                                <div class="event-date">
+                                    <span class="event-day">1</span>
+                                    <span class="event-weekday">Thu</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Final Exams Begin</h4>
+                                    <p class="event-time">All Day</p>
+                                    <p class="event-description">Spring semester final examinations begin</p>
+                                </div>
+                            </div>
+                            <div class="event-item holiday">
+                                <div class="event-date">
+                                    <span class="event-day">26</span>
+                                    <span class="event-weekday">Mon</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Memorial Day</h4>
+                                    <p class="event-time">All Day</p>
+                                    <p class="event-description">University closed for Memorial Day</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Details Modal -->
+            <div class="event-modal" id="eventModal">
+                <div class="event-modal-content">
+                    <div class="event-modal-header">
+                        <h3 id="modalEventTitle">Event Title</h3>
+                        <button class="close-modal" id="closeModal">×</button>
+                    </div>
+                    <div class="event-modal-body">
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span id="modalEventDate">April 15, 2025</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span id="modalEventTime">10:00 AM - 12:00 PM</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span id="modalEventLocation">Main Campus, Building A, Room 101</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                                <span id="modalEventType">Academic</span>
+                            </div>
+                        </div>
+                        <div class="event-description" id="modalEventDescription">
+                            Event description goes here with all the details about the event.
+                        </div>
+                        <div class="event-actions">
+                            <button class="action-button" id="addToCalendar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    <line x1="12" y1="15" x2="12" y2="19"></line>
+                                    <line x1="10" y1="17" x2="14" y2="17"></line>
+                                </svg>
+                                Add to My Calendar
+                            </button>
+                            <button class="action-button" id="setReminder">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                </svg>
+                                Set Reminder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Upcoming Events Sidebar -->
+        <div class="upcoming-events">
+            <div class="upcoming-header">
+                <h3>Upcoming Events</h3>
+            </div>
+            <div class="upcoming-list" id="upcomingList">
+                <div class="upcoming-event deadline">
+                    <div class="upcoming-date">
+                        <span class="upcoming-day">12</span>
+                        <span class="upcoming-month">MAY</span>
+                    </div>
+                    <div class="upcoming-info">
+                        <h4>Project Submission</h4>
+                        <p>11:59 PM • CS202</p>
+                    </div>
+                </div>
+                <div class="upcoming-event exam">
+                    <div class="upcoming-date">
+                        <span class="upcoming-day">15</span>
+                        <span class="upcoming-month">MAY</span>
+                    </div>
+                    <div class="upcoming-info">
+                        <h4>Midterm Exam</h4>
+                        <p>10:00 AM • MATH101</p>
+                    </div>
+                </div>
+                <div class="upcoming-event holiday">
+                    <div class="upcoming-date">
+                        <span class="upcoming-day">26</span>
+                        <span class="upcoming-month">MAY</span>
+                    </div>
+                    <div class="upcoming-info">
+                        <h4>Memorial Day</h4>
+                        <p>University Closed</p>
+                    </div>
+                </div>
+                <div class="upcoming-event academic">
+                    <div class="upcoming-date">
+                        <span class="upcoming-day">1</span>
+                        <span class="upcoming-month">JUN</span>
+                    </div>
+                    <div class="upcoming-info">
+                        <h4>Summer Registration</h4>
+                        <p>Opens at 9:00 AM</p>
+                    </div>
+                </div>
+                <div class="upcoming-event event">
+                    <div class="upcoming-date">
+                        <span class="upcoming-day">10</span>
+                        <span class="upcoming-month">JUN</span>
+                    </div>
+                    <div class="upcoming-info">
+                        <h4>Student Orientation</h4>
+                        <p>9:00 AM • Main Hall</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sync-container">
+                <button class="sync-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"></path>
+                    </svg>
+                    Sync with Google Calendar
+                </button>
+                <button class="export-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Export Calendar
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
