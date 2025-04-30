@@ -4,5 +4,6 @@
         "insertable",
         "projectlombok",
         "springframework"
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }
