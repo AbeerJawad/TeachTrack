@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback | TeachTrack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/stuFeedback.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <button id="sidebar-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Student Panel</span>
+        </div>
+        <div class="nav-right">
+            <a href="StuProfile.html" class="nav-link">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="StuLogin.html" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Side Navigation -->
+    <nav id="sidebar" class="sidebar">
+        <a href="StuDashboard.html" class="sidebar-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="stuFeedback.html" class="sidebar-item active">
+            <i class="fas fa-comment"></i>
+            <span>Feedback</span>
+        </a>
+        <a href="StuFacultyView.html" class="sidebar-item">
+            <i class="fas fa-users"></i>
+            <span>Faculty</span>
+        </a>
+        <a href="StuNotifications.html" class="sidebar-item">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+        </a>
+        <a href="#" class="sidebar-item">
+            <i class="fas fa-calendar"></i>
+            <span>Academic Calendar</span>
+        </a>
+        <div class="sidebar-footer">
+            <span>TeachTrack 2025</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <div class="page-header">
+            <h1>Submit Feedback</h1>
+            <p>Provide your feedback for courses and instructors</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon enrolled">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-info">
+                    <span>Enrolled Courses</span>
+                    <h2>5</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon completed">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <span>Completed Feedback</span>
+                    <h2>3</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon pending">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <span>Pending Feedback</span>
+                    <h2>2</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-list"></i>
+                    <h2>My Pending Feedback</h2>
+                </div>
+                <button class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Instructor</th>
+                            <th>Semester</th>
+                            <th>Due Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CS101: Introduction to Programming</td>
+                            <td>Dr. Sarah Johnson</td>
+                            <td>Spring 2025</td>
+                            <td>May 15, 2025</td>
+                            <td>
+                                <button class="btn fill-feedback">Fill Feedback</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CS202: Data Structures</td>
+                            <td>Prof. Michael Chen</td>
+                            <td>Spring 2025</td>
+                            <td>May 12, 2025</td>
+                            <td>
+                                <button class="btn fill-feedback">Fill Feedback</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>My Completed Feedback</h2>
+                </div>
+                <button class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Instructor</th>
+                            <th>Semester</th>
+                            <th>Submitted Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MATH101: Calculus I</td>
+                            <td>Dr. Robert Taylor</td>
+                            <td>Fall 2024</td>
+                            <td>December 15, 2024</td>
+                            <td>
+                                <button class="btn view-btn">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ENG205: Technical Writing</td>
+                            <td>Prof. Emily Wilson</td>
+                            <td>Fall 2024</td>
+                            <td>December 10, 2024</td>
+                            <td>
+                                <button class="btn view-btn">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Feedback Form Modal -->
+    <div id="feedback-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Course Feedback</h2>
+                <button id="close-modal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="feedback-form">
+                    <div class="form-header">
+                        <div class="form-info">
+                            <div class="info-row">
+                                <span class="label">Course:</span>
+                                <span id="form-course" class="value"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Instructor:</span>
+                                <span id="form-instructor" class="value"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Semester:</span>
+                                <span id="form-semester" class="value"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Course Content</h3>
+                        <div class="question-group">
+                            <p>The course material was well-organized and presented clearly:</p>
+                            <div class="rating">
+                                <div class="rating-option">
+                                    <input type="radio" name="organization" id="org-1" value="1" required>
+                                    <label for="org-1">1<span>Strongly Disagree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="organization" id="org-2" value="2">
+                                    <label for="org-2">2<span>Disagree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="organization" id="org-3" value="3">
+                                    <label for="org-3">3<span>Neutral</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="organization" id="org-4" value="4">
+                                    <label for="org-4">4<span>Agree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="organization" id="org-5" value="5">
+                                    <label for="org-5">5<span>Strongly Agree</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <p>The course content was relevant and helpful:</p>
+                            <div class="rating">
+                                <div class="rating-option">
+                                    <input type="radio" name="relevance" id="rel-1" value="1" required>
+                                    <label for="rel-1">1<span>Strongly Disagree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="relevance" id="rel-2" value="2">
+                                    <label for="rel-2">2<span>Disagree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="relevance" id="rel-3" value="3">
+                                    <label for="rel-3">3<span>Neutral</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="relevance" id="rel-4" value="4">
+                                    <label for="rel-4">4<span>Agree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="relevance" id="rel-5" value="5">
+                                    <label for="rel-5">5<span>Strongly Agree</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Instructor Evaluation</h3>
+                        <div class="question-group">
+                            <p>The instructor was knowledgeable about the subject matter:</p>
+                            <div class="rating">
+                                <div class="rating-option">
+                                    <input type="radio" name="knowledge" id="know-1" value="1" required>
+                                    <label for="know-1">1<span>Strongly Disagree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="knowledge" id="know-2" value="2">
+                                    <label for="know-2">2<span>Disagree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="knowledge" id="know-3" value="3">
+                                    <label for="know-3">3<span>Neutral</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="knowledge" id="know-4" value="4">
+                                    <label for="know-4">4<span>Agree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="knowledge" id="know-5" value="5">
+                                    <label for="know-5">5<span>Strongly Agree</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <p>The instructor was responsive to questions and concerns:</p>
+                            <div class="rating">
+                                <div class="rating-option">
+                                    <input type="radio" name="responsiveness" id="resp-1" value="1" required>
+                                    <label for="resp-1">1<span>Strongly Disagree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="responsiveness" id="resp-2" value="2">
+                                    <label for="resp-2">2<span>Disagree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="responsiveness" id="resp-3" value="3">
+                                    <label for="resp-3">3<span>Neutral</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="responsiveness" id="resp-4" value="4">
+                                    <label for="resp-4">4<span>Agree</span></label>
+                                </div>
+                                <div class="rating-option">
+                                    <input type="radio" name="responsiveness" id="resp-5" value="5">
+                                    <label for="resp-5">5<span>Strongly Agree</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Additional Comments</h3>
+                        <div class="form-group">
+                            <label for="strengths">What were the strengths of this course?</label>
+                            <textarea id="strengths" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="improvements">What suggestions do you have for improvement?</label>
+                            <textarea id="improvements" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="save-draft" class="btn secondary-btn">Save Draft</button>
+                        <button type="submit" class="btn primary-btn">Submit Feedback</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/stuFeedback.js"></script>
+</body>
+</html>

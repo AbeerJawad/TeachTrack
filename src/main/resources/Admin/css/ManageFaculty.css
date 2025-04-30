@@ -1,0 +1,336 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-color: #1a5236;
+    --primary-light: #246b45;
+    --primary-dark: #144029;
+    --danger-color: #cc0000;
+    --danger-hover: #990000;
+    --text-dark: #1a1a1a;
+    --text-light: #666;
+    --bg-light: #f1f3f6;
+    --bg-white: #ffffff;
+    --border-light: #eee;
+    --shadow-light: 0 8px 20px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+}
+
+/* Body Background */
+body {
+    background: var(--bg-light);
+    min-height: 100vh;
+}
+
+/* Navigation Bar */
+.navbar {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.dashboard-link {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 18px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.dashboard-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.back-arrow {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin-right: 8px;
+}
+
+.back-arrow::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    transform: rotate(-45deg);
+    top: 3px;
+    left: 3px;
+}
+
+/* Main Content */
+.content {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content h1 {
+    color: var(--text-dark);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+/* Filter Container */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter-container input {
+    padding: 14px 18px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    background: var(--bg-white);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.filter-container input:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(26, 82, 54, 0.15);
+    outline: none;
+}
+
+.filter-container button {
+    padding: 14px 28px;
+    font-size: 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.filter-container button:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Faculty Count */
+.faculty-count {
+    text-align: right;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 15px;
+    padding-right: 5%;
+}
+
+/* Table */
+table {
+    width: 90%;
+    margin: 0 auto;
+    background: var(--bg-white);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+}
+
+thead {
+    background: var(--primary-color);
+    color: white;
+}
+
+th, td {
+    padding: 18px;
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+th {
+    font-weight: 500;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr {
+    transition: var(--transition);
+}
+
+tbody tr:hover {
+    background-color: rgba(26, 82, 54, 0.05);
+}
+
+td {
+    color: #333;
+}
+
+/* Department Tag */
+.department-tag {
+    display: inline-block;
+    background-color: rgba(26, 82, 54, 0.1);
+    color: var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Action Buttons */
+.action-button {
+    padding: 8px 14px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 14px;
+    margin: 0 4px;
+    font-weight: 500;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-button {
+    background: var(--primary-color);
+}
+
+.edit-button:hover {
+    background: var(--primary-light);
+}
+
+.assign-button {
+    background: var(--primary-color);
+}
+
+.assign-button:hover {
+    background: var(--primary-light);
+}
+
+.delete-button {
+    background: var(--danger-color);
+}
+
+.delete-button:hover {
+    background: var(--danger-hover);
+}
+
+/* Add Faculty Button */
+.add-faculty-container {
+    margin-top: 40px;
+}
+
+#addFacultyButton {
+    padding: 14px 26px;
+    font-size: 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#addFacultyButton:hover {
+    background: var(--primary-light);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Plus Icon */
+.plus-icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    position: relative;
+    margin-right: 8px;
+}
+
+.plus-icon::before,
+.plus-icon::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+}
+
+.plus-icon::before {
+    width: 18px;
+    height: 2px;
+    top: 8px;
+    left: 0;
+}
+
+.plus-icon::after {
+    width: 2px;
+    height: 18px;
+    top: 0;
+    left: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+    }
+    
+    table {
+        width: 100%;
+    }
+    
+    th, td {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+    
+    .action-button {
+        padding: 6px 10px;
+        font-size: 12px;
+        margin: 2px;
+    }
+    
+    .navbar {
+        padding: 12px 15px;
+    }
+    
+    .content h1 {
+        font-size: 2rem;
+    }
+}

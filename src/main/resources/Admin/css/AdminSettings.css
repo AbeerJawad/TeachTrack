@@ -1,0 +1,237 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Top Panel */
+.top-panel {
+    background: #1a5236; /* Green Theme */
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-title {
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.menu-btn:hover {
+    transform: scale(1.1);
+}
+
+.top-right a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+}
+
+.top-right a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Settings Container */
+.settings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Settings Card */
+.settings-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.settings-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.settings-card h2 {
+    font-size: 20px;
+    color: #1a5236;
+    margin-bottom: 15px;
+}
+
+.settings-card button {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: white;
+    background: #1a5236;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.settings-card button:hover {
+    background: #1b5134;
+}
+
+/* Toggle Switch */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 25px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 25px;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    background: white;
+    border-radius: 50%;
+    bottom: 3.5px;
+    left: 5px;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background: #1a5236;
+}
+
+input:checked + .slider::before {
+    transform: translateX(24px);
+}
+
+/* Form Elements */
+.settings-card label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.settings-card input[type="email"],
+.settings-card input[type="password"],
+.settings-card input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Select Dropdowns */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+}
+
+/* Action Buttons */
+.action-button {
+    margin-right: 10px;
+}
+
+/* Save Button */
+.save-button {
+    margin-top: 10px;
+}
+
+/* Reset Button */
+.reset-button {
+    background-color: #1a5236 !important;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+
+.reset-button:hover {
+    background-color: #143e28 !important;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+.dark-mode .settings-card {
+    background: #1f1f1f;
+    color: #f0f0f0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode h2 {
+    color: #4caf50;
+}
+
+.dark-mode input[type="email"],
+.dark-mode input[type="password"],
+.dark-mode input[type="date"],
+.dark-mode select {
+    background-color: #333;
+    color: #f0f0f0;
+    border-color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .settings-container {
+        grid-template-columns: 1fr;
+    }
+}

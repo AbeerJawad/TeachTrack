@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - TeachTrack</title>
+    <link rel="stylesheet" href="css/StuDashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Floating menu button that will always be visible */
+        .floating-menu-btn {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            z-index: 1000;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .floating-menu-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.1);
+        }
+        
+        /* Animation for the button */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating-menu-btn {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Menu Button that will always be visible -->
+    <button class="floating-menu-btn" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Top Panel -->
+    <header class="top-panel">
+        <div class="dashboard-title">
+            <i class="fas fa-graduation-cap dashboard-icon"></i>
+            Student Panel
+        </div>
+        <div class="top-right">
+            <a href="StuProfile.html"><i class="fas fa-user"></i> Profile</a>
+            <a href="StudentSettings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="StuLogin.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-user-graduate"></i> Student Panel</h2>
+        </div>
+        <ul>
+            <li class="active"><a href="StuDashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="stuFeedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
+            <li><a href="StuFacultyView.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+            <li><a href="StuNotifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="AcademicCalendar.html"><i class="fas fa-calendar"></i> Academic Calendar</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><i class="fas fa-copyright"></i> TeachTrack 2025</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-section" id="mainSection">
+        <div class="content-area">
+            <!-- Welcome banner -->
+            <div class="welcome-banner">
+                <h1>Welcome to Your Dashboard</h1>
+                <p>Track your courses and feedback efficiently</p>
+            </div>
+
+            <!-- Search and filter bar -->
+            <div class="search-filter">
+                <div class="search-container">
+                    <input type="text" placeholder="Search courses..." id="searchInput">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="filter-container">
+                    <select id="courseFilter">
+                        <option value="">All Courses</option>
+                    </select>
+                    <button class="filter-btn" id="filterBtn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon icon-total">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Enrolled Courses</h3>
+                        <p id="enrolledCourses">5</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-positive">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Completed Feedback</h3>
+                        <p id="completedFeedback">3</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-negative">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Pending Feedback</h3>
+                        <p id="pendingFeedback">2</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses panel -->
+            <section class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        My Courses
+                    </div>
+                    <div class="panel-actions">
+                        <button class="refresh-btn" id="refreshBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Instructor</th>
+                                <th>Semester</th>
+                                <th>Feedback Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coursesTableBody">
+                            <tr>
+                                <td colspan="5" class="text-center">Loading courses...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Feedback Forms panel -->
+            <section class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-clipboard-list"></i>
+                        Available Feedback Forms
+                    </div>
+                    <div class="panel-actions">
+                        <button class="refresh-btn" id="refreshFeedbackBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Form Title</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackFormsTableBody">
+                            <tr>
+                                <td colspan="5" class="text-center">Loading feedback forms...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <button class="page-btn" id="prevPageBtn"><i class="fas fa-chevron-left"></i></button>
+                    <span class="page-number" id="currentPage">1</span>
+                    <button class="page-btn" id="nextPageBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Link to JavaScript file -->
+    <script src="js/StuDashboard.js"></script>
+</body>
+</html>

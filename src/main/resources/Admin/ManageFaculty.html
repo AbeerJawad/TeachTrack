@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Faculty</title>
+    <link rel="stylesheet" href="../css/ManageFaculty.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <span>Manage Faculty</span>
+        </div>
+        <div class="nav-right">
+            <a href="admindashboard.html" class="dashboard-link">
+                <i class="back-arrow"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content">
+        <h1>Manage Faculty</h1>
+        
+        <!-- Search Bar -->
+        <div class="filter-container">
+            <input type="text" id="searchInput" placeholder="Search faculty by name or department">
+            <button id="searchButton">Search</button>
+        </div>
+        
+        <!-- Faculty Count -->
+        <div class="faculty-count">
+            <span id="facultyCounter">Total faculty members: 3</span>
+        </div>
+        
+        <!-- Faculty Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Dr. Ahmed</td>
+                    <td><span class="department-tag">Computer Science</span></td>
+                    <td>ahmed@example.com</td>
+                    <td>
+                        <button class="action-button edit-button">Edit</button>
+                        <button class="action-button assign-button">Assign Courses</button>
+                        <button class="action-button delete-button">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Dr. Sara</td>
+                    <td><span class="department-tag">Mathematics</span></td>
+                    <td>sara@example.com</td>
+                    <td>
+                        <button class="action-button edit-button">Edit</button>
+                        <button class="action-button assign-button">Assign Courses</button>
+                        <button class="action-button delete-button">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Dr. Ali</td>
+                    <td><span class="department-tag">Physics</span></td>
+                    <td>ali@example.com</td>
+                    <td>
+                        <button class="action-button edit-button">Edit</button>
+                        <button class="action-button assign-button">Assign Courses</button>
+                        <button class="action-button delete-button">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Add Faculty Button -->
+        <div class="add-faculty-container">
+            <button id="addFacultyButton">
+                <span class="plus-icon"></span>
+                Add Faculty
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/ManageFaculty.js"></script>
+</body>
+</html>

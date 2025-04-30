@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/admindashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="nav-left">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <span class="dashboard-title">
+            <i class="fas fa-user-shield"></i> Admin Dashboard
+        </span>
+    </div>
+    <div class="nav-right">
+        <a href="AdminProfile.html" class="nav-btn">
+            <i class="fas fa-user"></i> Profile
+        </a>
+        <a href="adminsettings.html" class="nav-btn">
+            <i class="fas fa-cog"></i> Settings
+        </a>
+        <a href="#" class="nav-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+</div>
+
+<!-- Side Panel -->
+<div class="side-panel" id="sidePanel">
+    <div class="panel-header">
+        <i class="fas fa-user-shield"></i> Admin Panel
+    </div>
+    <div class="panel-menu">
+        <a href="admindashboard.html" class="active">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="managestudents.html">
+            <i class="fas fa-user-graduate"></i> Students
+        </a>
+        <a href="managefaculty.html">
+            <i class="fas fa-chalkboard-teacher"></i> Faculty
+        </a>
+        <a href="ManageCourses.html">
+            <i class="fas fa-book"></i> Courses
+        </a>
+        <a href="SystemAnalytics.html">
+            <i class="fas fa-chart-bar"></i> Analytics
+        </a>
+        <a href="adminnotifications.html">
+            <i class="fas fa-bell"></i> Notifications
+        </a>
+    </div>
+    <div class="panel-footer">
+        <span>Admin Portal 2025</span>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="welcome-card">
+        <h1>Welcome to Your Dashboard</h1>
+        <p>Track and manage system data efficiently</p>
+    </div>
+
+    <div class="filters-row">
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="filters">
+            <select>
+                <option>All Departments</option>
+                <option>Computer Science</option>
+                <option>Engineering</option>
+                <option>Business</option>
+            </select>
+            <button class="filter-btn">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Cards Section -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon students">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="stat-info">
+                <h2>Students</h2>
+                <p id="studentsCount">500</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon faculty">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="stat-info">
+                <h2>Faculty</h2>
+                <p id="facultyCount">200</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon courses">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="stat-info">
+                <h2>Courses</h2>
+                <p id="coursesCount">50</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon feedback">
+                <i class="fas fa-comment-alt"></i>
+            </div>
+            <div class="stat-info">
+                <h2>Pending Feedback</h2>
+                <p id="feedbackCount">10</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Overview Section -->
+    <div class="section-header">
+        <i class="fas fa-chart-line"></i> System Overview
+    </div>
+    
+    <div class="overview-container">
+        <div class="chart-card">
+            <h3>Student Enrollment Trends</h3>
+            <div class="chart-placeholder">
+                <i class="fas fa-chart-line"></i>
+                <p>Enrollment chart will be displayed here</p>
+            </div>
+        </div>
+        
+        <div class="chart-card">
+            <h3>Feedback Distribution</h3>
+            <div class="chart-placeholder">
+                <i class="fas fa-chart-pie"></i>
+                <p>Feedback distribution chart will be displayed here</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities Section -->
+    <div class="section-header">
+        <i class="fas fa-history"></i> Recent Activities
+    </div>
+    
+    <div class="activity-container">
+        <div class="activity-item">
+            <div class="activity-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <div class="activity-details">
+                <h4>New Student Registration</h4>
+                <p>20 new students registered today</p>
+                <span class="activity-time">2 hours ago</span>
+            </div>
+        </div>
+        
+        <div class="activity-item">
+            <div class="activity-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="activity-details">
+                <h4>Course Content Update</h4>
+                <p>CS101 syllabus was updated</p>
+                <span class="activity-time">Yesterday</span>
+            </div>
+        </div>
+        
+        <div class="activity-item">
+            <div class="activity-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="activity-details">
+                <h4>New Feedback Received</h4>
+                <p>5 new feedback submissions for CS202</p>
+                <span class="activity-time">2 days ago</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/admindashboard.js"></script>
+</body>
+</html>

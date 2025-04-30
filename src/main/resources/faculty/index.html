@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script defer src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (localStorage.getItem("darkMode") === "enabled") {
+                document.body.classList.add("dark-mode");
+            }
+        });
+    </script>
+        
+</head>
+<body>
+    <!-- Top Panel -->
+    <header class="top-panel">
+        <div class="dashboard-title">
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <i class="fas fa-chalkboard-teacher dashboard-icon"></i>
+            Faculty Dashboard
+        </div>
+        <div class="top-right">
+            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-user-tie"></i> Faculty Panel</h2>
+        </div>
+        <ul>
+            <li class="expandable" onclick="toggleFeedbackMenu()">
+                <a href="#"><i class="fas fa-comments"></i> Feedback</a>
+            </li>
+            <div id="expanded-menu" class="hidden">
+                <li><a href="view-individual-feedback.html"><i class="fas fa-eye"></i> View Individual Feedback</a></li>
+                <li><a href="respond-overview.html"><i class="fas fa-reply"></i> Respond to Feedback</a></li>
+                <li><a href="submitted-respond.html"><i class="fas fa-paper-plane"></i> Submitted Responses</a></li>
+                <li><a href="feedback-analytics.html"><i class="fas fa-chart-bar"></i> Feedback Analytics</a></li>
+            </div>
+            <li><a href="notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><i class="fas fa-copyright"></i> Faculty Portal 2025</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-section">
+        <div class="content-area">
+            <div class="welcome-banner">
+                <h1>Welcome to Your Dashboard</h1>
+                <p>Track and manage student feedback efficiently</p>
+            </div>
+            
+            <div class="search-filter">
+                <div class="search-container">
+                    <input type="text" placeholder="Search feedback..." id="searchFeedback">
+                    <button class="search-btn" onclick="searchFeedback()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="filter-container">
+                    <select id="courseFilter">
+                        <option value="">All Courses</option>
+                        <option value="CS101">CS101</option>
+                        <option value="CS102">CS102</option>
+                        <option value="CS201">CS201</option>
+                    </select>
+                    <button class="filter-btn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+            </div>
+
+            <div class="feedback-overview">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-comment-dots"></i></div>
+                    <div class="stat-content">
+                        <h3>Total Feedback</h3>
+                        <p id="totalFeedback">Loading...</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon positive"><i class="fas fa-thumbs-up"></i></div>
+                    <div class="stat-content">
+                        <h3>Positive Feedback</h3>
+                        <p id="positiveFeedback">Loading...</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon negative"><i class="fas fa-thumbs-down"></i></div>
+                    <div class="stat-content">
+                        <h3>Negative Feedback</h3>
+                        <p id="negativeFeedback">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Table -->
+            <section class="feedback-table">
+                <div class="table-header">
+                    <h2><i class="fas fa-list"></i> Received Feedback List</h2>
+                    <div class="table-actions">
+                        <button class="refresh-btn" onclick="loadFeedbackData()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Rating</th>
+                                <th>Comments</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackTable">
+                            <!-- Dummy feedback will be loaded by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <span class="page-number">1</span>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadFeedbackData();
+        });
+    </script>
+</body>
+</html>
